@@ -16,7 +16,7 @@ baseurl:             /
 paginate:            5
 host: jekyll.scooterx3.net
 port: 8080
-url: http://jekyll.scooterx3.net:8080
+url: http://blog.scooterx3.net
 
 # About/contact
 author:
