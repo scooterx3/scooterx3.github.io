@@ -16,7 +16,7 @@ The Main Model
 
 Acronym: **P**lease **D**o **N**ot **T**hrow **S**ausage **P**izza **A**way
 
-![OSI Model image](http://localhost:8080/assets/osi-model.png)
+![OSI Model image]({{ site.url }}/assets/osi-model.png)
 
 Today's Model
 ---
