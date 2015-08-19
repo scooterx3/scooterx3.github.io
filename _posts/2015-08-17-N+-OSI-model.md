@@ -1,5 +1,5 @@
 ---
-title: OSI Model
+title: Network + OSI Model
 layout: post
 ---
 

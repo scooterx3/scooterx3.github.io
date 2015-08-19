@@ -5,8 +5,8 @@ layout: post
 
 I was trying to set up vsftp for chrooted stuff and had set the following
 
-> chroot_local_user=YES
-> chroot_list_enable=NO
+> chroot\_local\_user=YES
+> chroot\_list\_enable=NO
 
 And for some reason I kept getting *500 OOPS: vsftpd: refusing to run with writable root inside chroot() Keep user jailed*
 
