@@ -20,8 +20,8 @@ Determine Block Size (BS)
 To get the value of the block size, just refer back to the mask values / finger game: 
 
 
-    Values	128 192 224 220 248 252 254 255
-    Weights 128	64  32  16  8   4   2   1
+    Mask	128 192 224 220 248 252 254 255
+    Block   128	64  32  16  8   4   2   1
     Bits    1   2   3   4   5   6   7   8
 
 If you need 4 bits, your block size is 16
