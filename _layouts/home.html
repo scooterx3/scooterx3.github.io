@@ -11,10 +11,13 @@
 	{% include sidebar.html %}
 	<div id="contentcontainer">
 		<div id="content">
-			<h1 class='posttitle'>{{ page.title }}</h1>
-			<span ><b>{{ page.date }}</b></span>
-			<span><b>{{ post}}</b></span>
-			{{content}}
+			{% for post in site.posts limit: 10 %}
+				<a class='posttitle' href="{{ post.url }}"><h1>{{ post.title }}</h1></a>
+				<span ><b>{{ post.date }}</b></span>
+				<p>{{ post.content }}</p>
+				<br>
+				<hr>
+			{% endfor %}
 		</div>
 	</div>
 </div>

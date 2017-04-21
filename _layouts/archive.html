@@ -11,10 +11,13 @@
 	{% include sidebar.html %}
 	<div id="contentcontainer">
 		<div id="content">
-			<h1 class='posttitle'>{{ page.title }}</h1>
-			<span ><b>{{ page.date }}</b></span>
-			<span><b>{{ post}}</b></span>
-			{{content}}
+		<h1 class='posttitle'>Archive</h1>
+		<ul>
+		{% for post in site.posts %}
+			<li><a class='posttitle' href="{{ post.url }}">{{ post.date | date_to_string }} - {{ post.title }}</a></li>
+			<hr>
+		{% endfor %}
+		</ul>
 		</div>
 	</div>
 </div>

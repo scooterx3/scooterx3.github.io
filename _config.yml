@@ -1,27 +1,13 @@
-# Dependencies
-markdown:            redcarpet
-highlighter:         pygments
+name: scooterx3.net
+safe:        false
+url:         http://localhost:4000
+source:      .
+destination: ./_site
+future:      true
+markdown:    kramdown
+highlighter: rouge
+permalink:   /:year-:month-:day/:title.html
+timezone: America/Denver
 
-# Permalinks
-#
-# Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
-relative_permalinks: true
-
-# Setup
-title:               scooterx3.net
-tagline:             'my tagline is better than your tagline'
-description:         'A place to store and present things I learn about tech'
-baseurl:             /
-paginate:            5
-host: jekyll.scooterx3.net
-port: 8080
-url: http://blog.scooterx3.net
-
-# About/contact
-author:
-  name:              Riley Loader
-  email:             riley.loader@gmail.com
-
-# Custom vars
-version:             1.0.0
+tag_page_layout: tag
+tag_page_dir: tags
