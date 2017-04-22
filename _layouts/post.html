@@ -13,7 +13,16 @@
 		<div id="content">
 			<h1 class='posttitle'>{{ page.title }}</h1>
 			<span ><b>{{ page.date }}</b></span>
-			<span><b>{{ post}}</b></span>
+			{% if page.tags.size > 0 %}
+			<br><b>tagged:</b><span>
+				{% for tag in page.tags %}
+					{% if tag == page.tags.last %}
+						{{ tag }}
+					{% else %}
+						{{ tag }},
+					{% endif %}
+				{% endfor %}</span>
+			{% endif %}
 			{{content}}
 		</div>
 	</div>

@@ -2,14 +2,12 @@
 	<a href="/"><img src="/assets/images/kickscooter.png" style="display:block;margin:auto;width:80%;"></a>
 	<p style="text-align: center;">scooterx3.net</p>
 	<div id="sidebarcontent">
-		<h3>Menu</h3>
-		<ul>
-			<li><a href="/archive.html">archive</a></li>
-		</ul>
+		<h3><a href="/archive.html">archive</a></h3>
 		<h3>Tags</h3>
 		<ul>
-			{% for tag in site.tag_cloud %}
-				<li>{{ tag | first }}</li>
+			{% assign tags = site.tags | sort %}
+			{% for tag in tags %}
+				<li><a href="/tags.html#tag_{{ tag | first }}">{{ tag|first }}</a></li>
 			{% endfor %}
 		</ul>
 	</div>

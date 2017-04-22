@@ -4,6 +4,7 @@
 	<title>{{ site.name }}{% if page.title %} | {{ page.title }} {% endif %}</title>
 	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
 	<link rel="stylesheet" type="text/css" href="/assets/css/pygments/monokai.css">
+	<!-- <script src="/assets/js/javascript.js"></script> -->
 </head>
 
 <body>
@@ -11,16 +12,20 @@
 	{% include sidebar.html %}
 	<div id="contentcontainer">
 		<div id="content">
+		<h1 class="posttitle" >Tags</h1>
+		{% assign tags = site.tags | sort %}
+		{% for tag in tags %}
 			<ul>
-			{% assign tags = site.tags | sort %}
-			{% for tag in tags %}
-			<li class="site-tag">
-				<a href="/tag/{{ tag | first | slugify }}/">
-				{{ tag[0] | replace:'-', ' ' }} ({{ tag | last | size }})
-				</a>
-			</li>
+			{% assign tagname = tag | first %}
+			<h2 id="tag_{{tagname}}">{{ tagname }}</h2>
+			{% for post in site.posts %}
+				{% if post.tags contains tagname %}
+					<li><a class='posttitle' href="{{ post.url }}">{{ post.title }}</a></li>
+				{% endif %}
 			{% endfor %}
 			</ul>
+			<hr>
+		{% endfor %}
 		</div>
 	</div>
 </div>

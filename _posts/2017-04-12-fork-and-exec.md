@@ -7,6 +7,7 @@ layout: post
 guid: https://scooterx3.net/?p=253
 categories:
   - Uncategorized
+tags: these are my tags
 ---
 dum thing
 
