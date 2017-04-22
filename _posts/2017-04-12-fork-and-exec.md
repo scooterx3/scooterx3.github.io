@@ -5,7 +5,7 @@ date: 2017-04-12T20:38:18+00:00
 author: riley
 layout: post
 guid: https://scooterx3.net/?p=253
-permalink: /?p=253
+
 categories:
   - Uncategorized
 ---
@@ -15,45 +15,55 @@ Let&#8217;s start with some random process. For simplicity, I&#8217;ll just gra
 
 * * *
 
-<pre>#!/bin/bash
+~~~
+#!/bin/bash
 #forkingscript.sh
 
 echo "[forkingscript.sh] my parent is: $PPID"
 echo "[forkingscript.sh] my pid is: $$"
 
-</pre>
 
-<pre>/home/user/childprocess.sh</pre>
+~~~
+
+~~~
+/home/user/childprocess.sh
+~~~
 
 * * *
 
-<pre>#!/bin/bash
+~~~
+#!/bin/bash
 #childprocess.sh
 
 echo "[childprocess.sh] my parent is: $PPID"
 echo "[childprocess.sh] my pid is: $$"
 
-exec /home/user/execprocess.sh</pre>
+exec /home/user/execprocess.sh
+~~~
 
 * * *
 
-<pre>#!/bin/bash
+~~~
+#!/bin/bash
 #execprocess.sh
 
 echo "[execprocess.sh] my parent is: $PPID"
-echo "[execprocess.sh] my pid is: $$"</pre>
+echo "[execprocess.sh] my pid is: $$"
+~~~
 
 * * *
 
 You&#8217;ll notice that the first calls the second. This is going to be a &#8216;fork&#8217;. The second will call the 3rd using &#8216;exec&#8217;. When I run the first forkingscript.sh script, this is what happens:
 
-<pre>$ ./forkingscript.sh 
+~~~
+$ ./forkingscript.sh 
 [forkingscript.sh] my parent is: 10059
 [forkingscript.sh] my pid is: 25397
 [childprocess.sh] my parent is: 25397
 [childprocess.sh] my pid is: 25398
 [execprocess.sh] my parent is: 25397
-[execprocess.sh] my pid is: 25398</pre>
+[execprocess.sh] my pid is: 25398
+~~~
 
 So, let&#8217;s analyze.
 
