@@ -22,10 +22,6 @@ Let&#8217;s start with some random process. For simplicity, I&#8217;ll just gra
 echo "[forkingscript.sh] my parent is: $PPID"
 echo "[forkingscript.sh] my pid is: $$"
 
-
-~~~
-
-~~~
 /home/user/childprocess.sh
 ~~~
 
