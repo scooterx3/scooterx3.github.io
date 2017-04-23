@@ -9,5 +9,14 @@ highlighter: rouge
 permalink:   /:year-:month-:day/:title.html
 timezone: America/Denver
 
+
 tag_page_layout: tag
 tag_page_dir: tags
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "post"
+    values:
+      comments: true

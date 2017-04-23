@@ -20,7 +20,7 @@
 			<h2 id="tag_{{tagname}}">{{ tagname }}</h2>
 			{% for post in site.posts %}
 				{% if post.tags contains tagname %}
-					<li><a class='posttitle' href="{{ post.url }}">{{ post.title }}</a></li>
+					<li><a class='posttitle' href="{{ post.url }}#disqus_thread">{{ post.title }}</a></li>
 				{% endif %}
 			{% endfor %}
 			</ul>
