@@ -3,8 +3,6 @@ title: cut - remove sections from each line of files
 tags: cut
 ---
 
-**NOTE:** I know there are already a hundred articles out there that analyze and teach basic linux command usage. Most feel to me like clickbait.  I'm just trying to get my LPIC-1 out of the way. This article is just a way for me to know the principle well enough to teach a bit about it so I can retain the info better. 
-
 ## purpose
 
 This prints to stdout selected parts of lines from either files or stdin, and spits them out on stdout. It can select byte ranges, character ranges and fields based on delimiters. 

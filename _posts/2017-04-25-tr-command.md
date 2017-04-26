@@ -3,8 +3,6 @@ title: tr - translate or delete characters
 tags: tr bash
 ---
 
-**NOTE:** I know there are already a hundred articles out there that analyze and teach basic linux command usage. Most feel to me like clickbait.  I'm just trying to get my LPIC-1 out of the way. This article is just a way for me to know the principle well enough to teach a bit about it so I can retain the info better. 
-
 ## purpose
 
 the `tr` command is for "translating" (replacing or deleting) **characters** in a string. Accepts input from stdin, and puts output on stdout. I am bold about **characters** because it's not got a way to specify that you want to replace one string with another string (use `sed` for that).
