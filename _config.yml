@@ -1,4 +1,5 @@
 name: scooterx3.net
+tagline: A place for me to braindump
 safe:        false
 url:         http://localhost:4000
 source:      .
