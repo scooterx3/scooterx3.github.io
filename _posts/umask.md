@@ -1,0 +1,40 @@
+---
+title: Umask
+tags: umask
+---
+
+The `umask` command/utility is a bash builtin. It's used to check and/or alter the _file-creation mode mask_. 
+
+## What's a Mode Mask?
+
+A mode mask is just a little bit of information (an octal value) that defines what permissions a file or directory is set with when created. It's generally stored/set in octal form and follows the same rules as the `chmod` command in terms of read/write/execute permissions are specified. The big difference though is that the octal form is a _complement_. So if I wanted that new files be created with a permission of `755`, I would set a mask of `022`. 
+
+## Default Mode Mask
+
+Generally the default is set by the `umask` command being run in `/etc/profile`. This makes it so that the login shell picks it up, and everything forked from that login shell inherits the same mask. 
+
+(I heard about a file at `/etc/login.defs` that has a value `UMASK 077` set within. Turns out that this only has to do with the shadow utilities that handle user/group management, nothing more. My guess is that when one of the shadow utilities has to create a file or a dir, it does so with a mask of 0077.)
+
+## Usage
+
+Very basically, running `umask` with no arguments just spits out the octal form of the mode mask: 
+
+~~~
+$ umask
+0002
+~~~
+
+You can check the _symbolic_ mask with `-S`: 
+
+~~~
+$ umask -S
+u=rwx,g=rwx,o=rx
+~~~
+
+It's very worth noting that the _symbolic_ mask displays the permissions that the file or directory would be given upon creation. It's not a compliment. Only the _octal_ mask shows a compliment. The above two masks would both result in a file being created with 0755 permissions! 
+
+Running `umask 0077` changes the mode. It doesn't confirm or anything, just provides a return value. 
+
+Likewise, one could set the mask symbolically by using `umask u+rwx go-rwx` (again, following same rules that chmod uses)which will result in a mask value of `0077`. 
+
+
