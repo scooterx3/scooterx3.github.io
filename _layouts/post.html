@@ -12,7 +12,11 @@
 	<div id="contentcontainer">
 		<div id="content">
 			<h1 class='posttitle'>{{ page.title }}</h1>
-			<span ><b>{{ page.date }}</b></span>
+			{% if page.updated %}
+				<span ><b>Updated: {{ page.updated | date_to_long_string }}</b></span>
+			{% else %}
+				<span ><b>Posted: {{ page.date | date_to_long_string }}</b></span>
+			{% endif %}
 			{% if page.tags.size > 0 %}
 			<br><b>tagged:</b><span>
 				{% for tag in page.tags %}
