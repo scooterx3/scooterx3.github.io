@@ -5,6 +5,7 @@ date: 2016-09-23T15:22:32+00:00
 author: riley
 layout: post
 guid: https://scooterx3.net/?p=172
+updated: May 17, 2017
 
 categories:
   - Uncategorized
@@ -14,9 +15,15 @@ tags:
 Because I always need to refer to this for some reason
 
 ~~~
-1 - x
-2 - w
 4 - r
+2 - w
+1 - x
+~~~
 
-Also, execute is required to change to a directory
+Note: execute is required to change to a directory
+
+~~~
+4 - setuid
+2 - setgid
+1 - sticky
 ~~~
