@@ -1,6 +1,6 @@
 ---
-Title: Binary Conversion
-Tags: binary math
+title: Binary Conversion
+tags: binary math
 ---
 
 This is a method I learned recently, figured I'd write it down. 
