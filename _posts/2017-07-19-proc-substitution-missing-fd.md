@@ -1,9 +1,9 @@
 ---
-title: Command Substitution - Missing File Descriptors
+title: Process Substitution - Missing File Descriptors
 tags:
  - bash
  - file descriptors
- - command substitution
+ - process substitution
 ---
 
 I work with many servers each day, and more often than not I wind up sourcing a script or two from one of my remote servers, thusly: 
