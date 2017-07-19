@@ -14,7 +14,7 @@ Now and then the server complains by responding:
 
 	bash: /dev/fd/63: No such file or directory
 
-I went googling and found that actually it's not a very uncommon thing to have happen. It turns out the symlink `/dev/fd > /proc/self/fd` was missing. The thing is, when you use command substitution: 
+I went googling and found that actually it's not a very uncommon thing to have happen. It turns out the symlink `/dev/fd > /proc/self/fd` was missing. The thing is, when you use process substitution: 
 
 	command 1 <(command 2)
 
