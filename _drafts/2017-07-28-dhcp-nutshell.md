@@ -3,7 +3,7 @@ title: DHCP In A Nutshell
 tags: dhcp networking
 ---
 
-DHCP provides **automatic, dynamic IP address assignment to client machines on a given network**. It's great for configuration because it removes lots of potential human error from the equation, and prevents one from needing to manually reconfigure a portable machine (laptop) that hops from one network to another. 
+DHCP provides **automatic, dynamic IP address assignment to client machines on a given network**. It's great for configuration because it removes lots of potential human error from the equation, and prevents one from needing to manually reconfigure a portable machine (laptop) that routinely hops from one network to another. 
 
 ## Notes
 DHCP operates at the **application layer** in OSI / Internet model (it's just a client/server application)
