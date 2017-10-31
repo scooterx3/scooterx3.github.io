@@ -13,17 +13,18 @@ tags:
   - discord
   - gateway
 ---
-I had a bunch of problems getting a discord bot going. Here&#8217;s what I did:
+I had a bunch of problems getting a discord bot going. Here's what I did:
 
-  1. Registered an app and set up a bot user.
-  2. Sign into the gateway (only required once, but it won&#8217;t let your bot send messages otherwise). I ran this JS snippet in the console of Chrome: 
-    ~~~
+  * Registered an app and set up a bot user.
+  * Sign into the gateway (only required once, but it won't let your bot send messages otherwise). I ran this JS snippet in the console of Chrome: 
+
+~~~
 var ws = new WebSocket('wss://gateway.discord.gg');
 
 mystring = JSON.stringify({
  "op": 2,
  "d": {
- "token": "&lt;bot token&gt;",
+ "token": "<bot token>",
  "properties": {
  "$os": "linux",
  "$browser": "sometestingbrowser",
@@ -37,14 +38,20 @@ mystring = JSON.stringify({
 })
 
 ws.send(mystring)
+
 ~~~
 
-  3. POSTed to the API server: 
-    ~~~
+  * POSTed to the API server: 
+
+~~~
 discord_body='this is my variabled message'
 echo "{\"content\":\"$discord_body\"}" | curl -v -H "Authorization: MTgzOTY1MDU1NDQ2OTQxNjk4.CiNoWw.WnZ_PiKSWVg5Nrq4JlVud37j76Q" -H "User-Agent: myBotThing (https://scooterx3.net, v0.1)" -H "Content-Type: application/json" -X POST --data-binary "@-" https://discordapp.com/api/channels/175975476253163521/messages
 ~~~
     
-    And that pretty much wraps it up. Not a hugely awesome bunch of documentation but it&#8217;ll trigger my brain if I need it in the future.</li> </ol> 
-    
-    &nbsp;
+And that pretty much wraps it up. Not a hugely awesome bunch of documentation but it'll trigger my brain if I need it in the future.
+
+
+
+Edit Oct 30, 2017: 
+
+Cleaned up the format. Also a note: I acknowledge that I did paste the actual authorization token above, but it's invalid now. Don't be like me; keep your tokens/keys secret.  
