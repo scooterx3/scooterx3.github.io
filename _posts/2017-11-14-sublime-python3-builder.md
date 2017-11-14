@@ -11,9 +11,7 @@ Here's what I used:
 
 ```
 {
-    "cmd": ["python3", "-i", "-u", "$file"],
-    "file_regex": "^[ ]File \"(...?)\", line ([0-9]*)",
-    "selector": "source.python"
+	"cmd": ["/usr/bin/python3", "-u", "$file"], 
 }
 ```
 
