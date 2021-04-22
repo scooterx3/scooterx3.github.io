@@ -1,0 +1,53 @@
+I"d
+<p>Just a quick reference of:</p>
+
+<ul>
+  <li>basic output</li>
+  <li>filter by bus/device</li>
+  <li>filter by vendor/product</li>
+</ul>
+
+<h2 id="basic-output">Basic Output</h2>
+<p>The lsusb tool just reads the USB bus and lists what it finds. Super flashy.</p>
+
+<p>Here’s my computer. I’ve only plugged in one flash drive and a mouse:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lsusb
+Bus 002 Device 003: ID 8086:0189 Intel Corp. 
+Bus 002 Device 004: ID 046d:c077 Logitech, Inc. M105 Optical Mouse
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 003: ID 058f:6387 Alcor Micro Corp. Flash Drive
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 001 Device 003: ID 1bcf:2b80 Sunplus Innovation Technology Inc. 
+Bus 001 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre></div></div>
+
+<p>The breakdown from L-R: 
+Bus# Device#: vendorID:productID Description</p>
+
+<p>One can filter this output by using <code class="language-plaintext highlighter-rouge">-s</code> to specify a bus and a device number, or by using <code class="language-plaintext highlighter-rouge">-d</code> to specify vendor and product ID numbers.</p>
+
+<h2 id="filter-by-busdevice-id">Filter by Bus/Device ID</h2>
+
+<p>Let’s look at the 2nd bus using <code class="language-plaintext highlighter-rouge">-s</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lsusb -s 002:
+Bus 002 Device 003: ID 8086:0189 Intel Corp. 
+Bus 002 Device 004: ID 046d:c077 Logitech, Inc. M105 Optical Mouse
+Bus 002 Device 002: ID 8087:0024 Intel Corp. Integrated Rate Matching Hub
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+</code></pre></div></div>
+
+<h2 id="filter-by-vendorproduct-id">Filter by Vendor/Product ID</h2>
+
+<p>Let’s check for any Logitech things using <code class="language-plaintext highlighter-rouge">-d</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ lsusb -d 046d:
+Bus 002 Device 004: ID 046d:c077 Logitech, Inc. M105 Optical Mouse
+</code></pre></div></div>
+
+<p>If I had more Logitech devices plugged in, this would probably have displayed those as well. Note on both of those there’s a colon after the ID. It’s important to put that there or the filter may work improperly or not at all.</p>
+
+:ET

@@ -1,0 +1,12 @@
+I"U<p>Had trouble figuring out how to clone from a private git server. As long as git is installed, you can create a repository, then pull from it using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://user@host/~user/repo/
+</code></pre></div></div>
+
+<p>or you could also:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone ssh://user@host/home/user/repo/
+</code></pre></div></div>
+
+<p>But it just doesn’t do relative paths (except for the ~user/ part)</p>
+:ET

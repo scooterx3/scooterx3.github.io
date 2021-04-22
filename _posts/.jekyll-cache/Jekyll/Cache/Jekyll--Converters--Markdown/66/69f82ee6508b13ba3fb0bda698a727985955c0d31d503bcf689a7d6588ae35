@@ -1,0 +1,14 @@
+I"®<p>Because I always need to refer to this for some reason</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 - r
+2 - w
+1 - x
+</code></pre></div></div>
+
+<p>Note: execute is required to change to a directory</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4 - setuid
+2 - setgid
+1 - sticky
+</code></pre></div></div>
+:ET

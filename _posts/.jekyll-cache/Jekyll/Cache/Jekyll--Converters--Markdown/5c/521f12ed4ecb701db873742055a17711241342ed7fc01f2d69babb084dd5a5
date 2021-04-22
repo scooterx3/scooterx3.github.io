@@ -1,0 +1,58 @@
+I"�<p>I was just trying to understand Exec a bit better, specifically in scripting. I went down a small rabbit hole, and I’m not sure I’m any closer to understanding the purpose of exec in scripting yet, but I just had a lightbulb that I figured I should write down. My objective is to show the relationship between fork and exec, and what exec’s purpose is.</p>
+
+<p>Let’s start with some random process. For simplicity, I’ll just grab my current bash instance, which happens to have a PID of 10059. I’ve created these 3 scripts which I’ll use to illustrate what happens:</p>
+
+<hr />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+#forkingscript.sh
+
+echo "[forkingscript.sh] my parent is: $PPID"
+echo "[forkingscript.sh] my pid is: $$"
+
+/home/user/childprocess.sh
+</code></pre></div></div>
+
+<hr />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+#childprocess.sh
+
+echo "[childprocess.sh] my parent is: $PPID"
+echo "[childprocess.sh] my pid is: $$"
+
+exec /home/user/execprocess.sh
+</code></pre></div></div>
+
+<hr />
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+#execprocess.sh
+
+echo "[execprocess.sh] my parent is: $PPID"
+echo "[execprocess.sh] my pid is: $$"
+</code></pre></div></div>
+
+<hr />
+
+<p>You’ll notice that the first calls the second. This is going to be a ‘fork’. The second will call the 3rd using ‘exec’. When I run the first forkingscript.sh script, this is what happens:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./forkingscript.sh 
+[forkingscript.sh] my parent is: 10059
+[forkingscript.sh] my pid is: 25397
+[childprocess.sh] my parent is: 25397
+[childprocess.sh] my pid is: 25398
+[execprocess.sh] my parent is: 25397
+[execprocess.sh] my pid is: 25398
+</code></pre></div></div>
+
+<p>So, let’s analyze.</p>
+
+<p>In forkingscript.sh, you’ll notice it has its own new PID of 25397. The parent is 10059, which is the bash instance that’s running. Then once childprocess.sh is called, it gets a new PID, and the parent was the process that called it (forkingscript.sh). Now what just lightbulbed for me was that when using exec, a new process isn’t created, but rather the existing one is used, essentially taking over the process that called it. Note that the PID in ‘execprocess.sh’ is the same as the PID from ‘childprocess.sh’.</p>
+
+<p>I need to explain that forking runs an exec as well. When a process forks, it creates a clone of itself. So from bash, when I ran forkingscript.sh, it actually created a new bash clone (with a new PID) and then that bash clone exec’d the forkingscript.sh, which then essentially replaced that child bash process with whatever came with forkingscript.sh.</p>
+
+<p>I also need to explain that at the point in a program or script, when exec is run, that is the literal end of that script. Any code that may have been written after the exec call will never run.</p>
+
+<p>I found this video helpful: https://www.youtube.com/watch?v=mj2VjcOXXs4</p>
+:ET

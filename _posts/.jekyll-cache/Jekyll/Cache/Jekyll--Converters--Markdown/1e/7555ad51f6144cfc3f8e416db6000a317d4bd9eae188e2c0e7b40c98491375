@@ -1,0 +1,10 @@
+I"ç<p>Found this cool tool to burn an ISO to CD or DVD with a quick command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>growisofs -Z /dev/dvdrw=&amp;lt;path to iso&amp;gt;
+</code></pre></div></div>
+
+<p>An example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>growisofs -Z /dev/dvdrw=/home/riley/Downloads/CentOS-7-x86_64-Minimal-1511.iso
+</code></pre></div></div>
+:ET

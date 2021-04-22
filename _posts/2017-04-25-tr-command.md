@@ -1,6 +1,7 @@
 ---
 title: tr - translate or delete characters
 tags: tr bash
+layout: post
 ---
 
 ## purpose

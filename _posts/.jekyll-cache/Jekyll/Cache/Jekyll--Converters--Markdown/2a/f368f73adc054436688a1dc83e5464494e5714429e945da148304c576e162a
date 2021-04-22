@@ -1,0 +1,15 @@
+I"t<p>Sources lists found in:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/apt/sources.list
+/etc/apt/sources.list.d/*
+</code></pre></div></div>
+
+<p>Apt-get and apt-cache commands go hand-in-hand, whereas aptitude is new and kinda rolls them into one.</p>
+
+<p>There’s a script called:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dpkg-reconfigure
+</code></pre></div></div>
+
+<p>which can walk one through the initial setup of a package that they’d have found when they first installed a package.</p>
+:ET

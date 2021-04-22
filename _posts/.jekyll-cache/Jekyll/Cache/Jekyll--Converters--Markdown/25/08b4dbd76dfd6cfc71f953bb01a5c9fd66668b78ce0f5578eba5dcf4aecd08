@@ -1,0 +1,31 @@
+I"*<h3 id="raid">RAID</h3>
+
+<p>RAID (Redundant Array of Independent Disks) offers Performance and Reliability</p>
+
+<p>Striped vs Mirrored – Striped has zero redundancy, but Mirrored is redundant.</p>
+
+<p>Raid0 – striped. 4 drives in a raid0 at 20gb each provide 80gb total. High performance. You can write to all 4 drives at the same time (called striping). But it comes with a cost. Say that one HD goes down. Then the whole raid array fails because one file could be written across 4 drives, and if one drive goes down, the file is not usable.</p>
+
+<p>Raid1 – mirrored / stacking. 4 drives still, but they work together. 2 drives mirror each other. 20g per, but only can use 40 gig total. But drive A and B share the same data. Drive C and D share the same data too. If Drive A bites the dust, drive B still has the data and one can swap Drive A out and we’re still good.</p>
+
+<p>Raid5 – compromise between speed and reliability. parody drive. (4) 20gb drives, one of them acts like a “wildcard” which somehow steps in if one of the other drives bites the dust (so has to be replaced quickly). So 60gb is usable for striping across 3 drives but there’s a backup.</p>
+
+<h3 id="lvm">LVM</h3>
+
+<p>LVM provides flexibility</p>
+
+<p>4 drives:</p>
+
+<ol>
+  <li>10gb</li>
+  <li>50gb</li>
+  <li>300gb</li>
+  <li>40gb</li>
+</ol>
+
+<p>total of 400gb. Uses striping. Allows for adding to an array at any time.</p>
+
+<p>The advantage is when you throw some raid1 or raid5 arrays together in LVM so as to be able to be more flexible in adding space to a big array.</p>
+
+<p> </p>
+:ET

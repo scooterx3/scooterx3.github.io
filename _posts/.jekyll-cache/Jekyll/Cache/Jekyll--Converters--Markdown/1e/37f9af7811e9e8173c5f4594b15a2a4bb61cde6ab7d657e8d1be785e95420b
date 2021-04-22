@@ -1,0 +1,93 @@
+I"I<p><strong>RTF(ull)M</strong></p>
+
+<p>This makes me think of the the paper manuals that came inside of a box with the game cartridge back in the day. They taught one about the game, how to play, and gave helpful information to make one’s questing more enjoyable. Well, the “man pages” are like those manuals, but for commands/packages/software on a Linux system.</p>
+
+<h2 id="using-the-manual">Using The Manual</h2>
+
+<p>You can view pages from the manual using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man &lt;page&gt;
+</code></pre></div></div>
+
+<p>Where <code class="language-plaintext highlighter-rouge">&lt;page&gt;</code> is the name of the page you want. For instance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>man ls
+man cat
+man find
+</code></pre></div></div>
+
+<p>Besides just <code class="language-plaintext highlighter-rouge">man &lt;page&gt;</code> one may often find themselves wanting to search the manual for something or specify a particular section to read.</p>
+
+<h3 id="specify-section">Specify Section</h3>
+
+<p>Per man(1):</p>
+
+<blockquote>
+  <p>The default action is to search in all of the available sections following a pre-defined order (“1 n l 8 3 2 5 4 9 6 7”…)</p>
+</blockquote>
+
+<p>But what if I’m searching for a particular command (let’s call it <code class="language-plaintext highlighter-rouge">foo</code>) that has pages in section 1 as well as section 7. Invoking <code class="language-plaintext highlighter-rouge">man foo</code> brings up foo(1) from the manual. If I want to see the page from section 7 I’d use <code class="language-plaintext highlighter-rouge">man 7 foo</code>. Supposedly I should also be able to use <code class="language-plaintext highlighter-rouge">man foo.7</code> but I can’t seem to get that to work (Fedora 24). Not sure why yet.</p>
+
+<h3 id="search">Search</h3>
+
+<p>There are a couple of options. The ones I like are <code class="language-plaintext highlighter-rouge">man -f</code> also known as <code class="language-plaintext highlighter-rouge">whatis</code> and <code class="language-plaintext highlighter-rouge">man -k</code> also known as <code class="language-plaintext highlighter-rouge">apropos</code>.</p>
+
+<p>What I like about <code class="language-plaintext highlighter-rouge">man -f</code> is that it displays a concise description of a command from the description of each section. The handy part is that it lets me know which sections are available for a given command.</p>
+
+<p>Then <code class="language-plaintext highlighter-rouge">man -k</code> allows a full text search of the names and descriptions. This can be used to look up pages about a particular topic, such as http for instance.</p>
+
+<p>One could also invoke <code class="language-plaintext highlighter-rouge">man -K</code> (capital K) for a full text search of the entirety of every man page. Could take awhile to get a result out of this one if you’ve got a lot of pages in the manual.</p>
+
+<h2 id="sections">Sections</h2>
+
+<p>The manual has several sections:</p>
+
+<ol>
+  <li>Executable programs or shell commands</li>
+  <li>System calls (functions provided by the kernel)</li>
+  <li>Library calls (functions within program libraries)</li>
+  <li>Special files (usually found in /dev)</li>
+  <li>File formats and conventions eg /etc/passwd</li>
+  <li>Games</li>
+  <li>Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)</li>
+  <li>System administration commands (usually only for root)</li>
+  <li>Kernel routines [Non standard]</li>
+</ol>
+
+<h2 id="page-anatomy">Page Anatomy</h2>
+
+<p>Each page also has its own sections taken from this list:</p>
+
+<ul>
+  <li>NAME</li>
+  <li>SYNOPSIS</li>
+  <li>CONFIGURATION</li>
+  <li>DESCRIPTION</li>
+  <li>OPTIONS</li>
+  <li>EXIT STATUS</li>
+  <li>RETURN VALUE</li>
+  <li>ERRORS</li>
+  <li>ENVIRONMENT</li>
+  <li>FILES</li>
+  <li>VERSIONS</li>
+  <li>CONFORMING TO</li>
+  <li>NOTES</li>
+  <li>BUGS</li>
+  <li>EXAMPLE</li>
+  <li>AUTHORS</li>
+  <li>SEE ALSO</li>
+</ul>
+
+<p>They’re not all required, some have many, I don’t know if any pages actually use all of those sections.</p>
+
+<h2 id="where-are-they-stored">Where are they stored?</h2>
+
+<p>Per FHS 3.0, <code class="language-plaintext highlighter-rouge">/usr/share/man</code> is where they should be stored, but for what YOUR system uses, just run the <code class="language-plaintext highlighter-rouge">manpath</code> command. The <code class="language-plaintext highlighter-rouge">manpath</code> command “…is determined using information gained from the man-db configuration file.”</p>
+
+<p>I imagine the manual on a system as a 3-ring locking binder that allows for one to easily add/remove pages as needed. My experience in the matter is that they are put there by whoever built your distribution, but can be added automatically when one uses their package manager to install something. Otherwise it would need to be done manually by just copying the files into the appropriate place.</p>
+
+<h2 id="more-info">More Info</h2>
+
+<p>Just check out man(1). Now you know how!</p>
+
+:ET

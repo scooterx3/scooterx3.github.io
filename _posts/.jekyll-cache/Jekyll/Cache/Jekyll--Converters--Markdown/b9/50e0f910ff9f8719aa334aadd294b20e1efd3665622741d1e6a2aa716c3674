@@ -1,0 +1,38 @@
+I",<p> </p>
+
+<ul>
+  <li>ls creates symlinks and hardlinks (use the -s flag for a symlink)</li>
+  <li>symlinks are identified by the ‘l’ in the attributes of a file (random example from my current machine):</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lrwxrwxrwx.  1 riley riley         33 Oct  3 08:29 .xbindkeysrc -&amp;gt; /home/riley/dotfiles/.xbindkeysrc
+ drwxrwxr-x.  4 riley riley       4096 Mar 24 08:42 xdrive
+ -rw-rw-r--.  1 riley riley      26918 Oct  9 08:31 .xfce4-session.verbose-log
+
+</code></pre></div></div>
+
+<p>Notice the first one has an ‘l’ in it, that means it’s a symlink (but also the stuff on the far right makes it obvious). The other is a ‘d’ which means it’s a directory. The last one is just a regular file.</p>
+
+<ul>
+  <li>hard links aren’t easily identified. Thing is, EVERY file you look at (file, not necessarily directory) is a hard link. Hard links are just entries in the directory listing table thingy (not sure that’s the right word for it) that map a filename to an inode. The only giveaway is this:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls -ial
+ total 12
+ 13897726 drwxrwxr-x.  2 riley riley 4096 Mar 25 14:15 .
+ 25427969 drwx------. 80 riley riley 4096 Mar 25 13:41 ..
+ 13897727 -rw-rw-r--.  1 riley riley    0 Mar 25 13:41 a
+ 13897728 -rw-rw-r--.  1 riley riley    0 Mar 25 13:41 b
+ 13897729 -rw-rw-r--.  2 riley riley    0 Mar 25 13:41 c
+ 13897729 -rw-rw-r--.  2 riley riley    0 Mar 25 13:41 d
+
+</code></pre></div></div>
+
+<p>adding ‘-i’ to the ‘ls’ command displays the inode number for each entry in the directory. In this case, a and b have their own specific inode numbers. Note that c and d share the same inode number. d was created using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln c d
+
+</code></pre></div></div>
+
+<p>One last note is that syminks CAN cross filesystem boundaries, but hardlinks canNOT.</p>
+:ET

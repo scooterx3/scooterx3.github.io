@@ -1,0 +1,16 @@
+I"W<p>Just wanted to write down that I created a quick method for a coworker to fix her monitors when she docked her laptop. The problem was that XFCE (she’s using Xubuntu 16.04) wasn’t remembering the monitor’s settings. When she docked the laptop, she had to manually put things back using the GUI for monitor settings. I wrote a quick script something like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#!/bin/bash
+xrandr --output &amp;lt;monitor 1&amp;gt; --auto
+xrandr --output &amp;lt;monitor 2&amp;gt; --auto
+xrandr --output &amp;lt;monitor 3&amp;gt; --auto
+xrandr --output &amp;lt;monitor 2&amp;gt; --right-of &amp;lt;monitor 1&amp;gt; --output &amp;lt;monitor 3&amp;gt; --right-of &amp;lt;monitor 2&amp;gt;
+</code></pre></div></div>
+
+<p>The <monitor> names were different, I retrieved them from her system using `xrandr -q`. I did find that without running the &#8211;auto lines FIRST, nothing else took. xrandr man page and examples made it seem like I could do one single command and have everything work. But in this case, one single command made everything break instead.</monitor></p>
+
+<p>I then just added a button to her menu that she can click. If I could hijack the signal somehow of when the computer was docked I could do that, rather than have XFCE pop up a “what do you wanna do with these monitors?” dialogue. But it is what it is. She no longer dreads having to undock and go to a meeting.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+:ET

@@ -1,0 +1,18 @@
+I"<p>/boot/grub2/grub.cfg has a list of menuentries with a lot of information in each. Starting at 0 count down to the one you want (you could script this out too). Then take that number and edit /etc/default/grub. In that file, add (or edit) a line:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GRUB_DEFAULT=x
+</code></pre></div></div>
+
+<p>x being the number of the menuentry you picked from looking in /boot/grub2/grub.cfg</p>
+
+<p>Then you have to update the grub.cfg file by running:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grub2-mkconfig -o /boot/grub2/grub.cfg
+</code></pre></div></div>
+
+<p>grub2-mkconfig compiles settings “…using templates</p>
+
+<p># from /etc/grub.d and settings from /etc/default/grub.”</p>
+
+<p>I understand other systems to have a script called “update-grub” or “update-grub2” but all they do is run the “grub-mkconfig” or “grub2-mkconfig” in turn.</p>
+:ET

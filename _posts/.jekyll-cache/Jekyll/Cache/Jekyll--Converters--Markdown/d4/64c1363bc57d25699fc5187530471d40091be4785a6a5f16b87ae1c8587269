@@ -1,0 +1,66 @@
+I"�<h2 id="purpose">purpose</h2>
+
+<p>This prints to stdout selected parts of lines from either files or stdin, and spits them out on stdout. It can select byte ranges, character ranges and fields based on delimiters.</p>
+
+<h2 id="bytes">bytes</h2>
+
+<p>I’m still working out what actual use cases are for this, but here’s a basic example using the <code class="language-plaintext highlighter-rouge">-b</code> flag:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">echo</span> <span class="s1">'El Niño'</span> | <span class="nb">cut</span> <span class="nt">-b</span> 1
+E <span class="c">#since 'E' is 1 byte long, and I wanted the first byte of the string, it returned 'E'</span>
+</code></pre></div></div>
+
+<p>I can do a range:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'El Niño'</span> | <span class="nb">cut</span> <span class="nt">-b</span> 1-4
+El N
+</code></pre></div></div>
+
+<p>I can specify exact byte positions:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'El Niño'</span> | <span class="nb">cut</span> <span class="nt">-b</span> 1,4
+EN
+</code></pre></div></div>
+
+<h2 id="characters">characters</h2>
+
+<p>An interesting thing is that the ‘ñ’ takes up two bytes. I wouldn’t be able to use <code class="language-plaintext highlighter-rouge">-b</code> to get it unless I specified the appropriate byte range.</p>
+
+<p>I could select by character by using <code class="language-plaintext highlighter-rouge">-c</code>:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'El Niño'</span> | <span class="nb">cut</span> <span class="nt">-c</span> 6
+ñ <span class="c">#ñ is the 6th character</span>
+</code></pre></div></div>
+
+<p>The same ranges, and specific character positions apply to characters as they did to bytes.</p>
+
+<h2 id="fields">fields</h2>
+
+<p><code class="language-plaintext highlighter-rouge">-f</code> is used to specify fields. Seems to require the use of <code class="language-plaintext highlighter-rouge">-d</code> as well to specify the delimiter:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"the quick, brown fox"</span> | <span class="nb">cut</span> <span class="nt">-f</span> 2 <span class="nt">-d</span>,
+ brown fox
+
+<span class="nb">echo</span> <span class="s2">"the quick, brown fox"</span> | <span class="nb">cut</span> <span class="nt">-f</span> 2 <span class="nt">-d</span>,
+ brown fox
+
+<span class="nb">echo</span> <span class="s2">"the quick, brown fox"</span> | <span class="nb">cut</span> <span class="nt">-f</span> 2,4 <span class="nt">-d</span><span class="s1">' '</span>
+quick, fox
+</code></pre></div></div>
+
+<h2 id="output-delimiter">output delimiter</h2>
+
+<p>Using <code class="language-plaintext highlighter-rouge">--output-delimiter</code>, you can specify a different delimiter besides the default space (<code class="language-plaintext highlighter-rouge">' '</code>).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"the quick, brown fox"</span> | <span class="nb">cut</span> <span class="nt">-f</span> 1,3 <span class="nt">-d</span><span class="s1">' '</span> <span class="nt">--output-delimiter</span> :
+the:brown
+</code></pre></div></div>
+
+<h2 id="complement">complement</h2>
+
+<p>Get the complement (opposite) of what was specified by using <code class="language-plaintext highlighter-rouge">--complement</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"the quick, brown fox"</span> | <span class="nb">cut</span> <span class="nt">-f</span> 2 <span class="nt">-d</span><span class="s1">' '</span> <span class="nt">--complement</span>
+the brown fox
+</code></pre></div></div>
+:ET

@@ -1,0 +1,23 @@
+I"h<h2 id="disableenable-on-the-fly">Disable/enable on the fly</h2>
+
+<p>Either turn it on:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo setenforce enforcing
+</code></pre></div></div>
+
+<p>or turn it off:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo setenforce permissive
+</code></pre></div></div>
+
+<p>These aren’t permanent changes; next reboot it’ll go back to whatever the config is set to. But this will let you on the fly turn on or off SELinux. I use it if I suspect SELinux to be blocking something.</p>
+
+<h2 id="change-context">Change context</h2>
+
+<p>Sometimes one has to change context of a file or directory. Doing it recursively for a particular directory is as easy as:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo chcon -Rv --type=httpd_sys_content_t &amp;lt;directory&amp;gt;
+</code></pre></div></div>
+
+<p>Where httpd_sys_content_t is the “type” of context. Generally that’s all I ever use this for.</p>
+:ET

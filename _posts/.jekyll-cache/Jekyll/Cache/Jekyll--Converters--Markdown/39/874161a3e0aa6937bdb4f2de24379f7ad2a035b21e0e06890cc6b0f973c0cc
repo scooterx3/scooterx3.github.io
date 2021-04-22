@@ -1,0 +1,15 @@
+I"{<p>I just learned that bash’s exit codes only go as high as 255. If you go to 256, it loops back around to 0 again. Playing with sed here (the number following the <code class="language-plaintext highlighter-rouge">q</code> command tells it to return that particular exit code):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed '/Steve/q255' file.txt; echo $?
+</code></pre></div></div>
+
+<p>If ‘Steve’ is found in file.txt, return with error code 255. Steve was in the file, so it returned 255 as expected.</p>
+
+<p>Had I done either of these:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed '/Steve/q257' file.txt; echo $?
+sed '/Steve/q264' file.txt; echo $?
+</code></pre></div></div>
+
+<p>It would’ve returned 1 and 8, respectively. Kinda’ interesting.</p>
+:ET

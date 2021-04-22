@@ -1,0 +1,21 @@
+I"�<p>I’m working on an app and found that this keeps failing saying “DateTime __construct() Failed to parse time string (xxxxxxxx) at position x”</p>
+
+<p>Code was as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$epoch = 1447258140;
+$dt = new DateTime($epoch); // This was the failing point
+$timestamp = $dt-&amp;gt;format('Y-m-d H:i:s');
+</code></pre></div></div>
+
+<p>But I learned here: http://stackoverflow.com/questions/17427503/php-datetime-construct-failed-to-parse-time-string-xxxxxxxx-at-position-x</p>
+
+<p>That it’s best to just create the DateTime, then use one of its methods to set the time:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$epoch = 1447258140;
+$dt = new DateTime();
+$dt-&amp;gt;setTimestamp($epoch); 
+$timestamp = $dt-&amp;gt;format('Y-m-d H:i:s');
+</code></pre></div></div>
+
+<p>That worked wonderfully!</p>
+:ET

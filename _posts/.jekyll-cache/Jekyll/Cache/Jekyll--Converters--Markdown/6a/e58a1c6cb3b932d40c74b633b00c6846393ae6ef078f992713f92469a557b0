@@ -1,0 +1,140 @@
+I"� <p>RPM has been around since 1997, per Wikipedia. Originally was known as <em>Red Hat Package Manager</em>, but now just stands for <em>RPM Package Manager</em>. Here’s a quick overview on it.</p>
+
+<h2 id="rpm-archive">RPM Archive</h2>
+
+<h3 id="naming-scheme">Naming Scheme</h3>
+
+<p>Example:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;name&gt;-&lt;version&gt;-&lt;build&gt;.&lt;architecture&gt;.rpm
+-----
+xbill-2.1-6.fc24.x86_64.rpm
+</code></pre></div></div>
+
+<p>The above is largely self-explanatory, but for clarity, the <code class="language-plaintext highlighter-rouge">&lt;build&gt;</code> field is for either the number of times the package has been rebuilt (I’m not sure how that’s useful) or it’s for indicating the specific distribution the package is intended for (very useful, IMO). And <code class="language-plaintext highlighter-rouge">&lt;architecture&gt;</code> refers to the CPU arch. i386, x86_64, etc.</p>
+
+<h3 id="format-the-guts-of-the-file">Format (the guts of the file)</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">.rpm</code> files themselves are in <em>binary</em>. There are four sections:</p>
+<ul>
+  <li>lead - identifies file as RPM using the “magic number”, also specifies version of RPM file format the package uses.</li>
+  <li>signature - used to ensure package integrity and authenticity</li>
+  <li>header - package name, version, copyright message, architecture, file list, dependencies, signature info, etc - see below link for a full list</li>
+  <li>payload - cpio archive, generally gzipped.</li>
+</ul>
+
+<p>Also see <a href="https://docs.fedoraproject.org/ro/Fedora_Draft_Documentation/0.1/html/RPM_Guide/ch-package-structure.html">the docs over at fedoraproject.org</a>. For some reason the Chech version has it all laid out but the English version doesn’t.</p>
+
+<h2 id="rpm-database">RPM Database</h2>
+
+<p>There exists an RPM database on a system that uses RPM. The idea as far as I can tell is that all of the header info for each package gets added to the database as a package is installed. Then that database can later be queried for info about the installed packages on a given system.</p>
+
+<h2 id="usage">Usage</h2>
+<p>There are essentially 3 “categories” for the <code class="language-plaintext highlighter-rouge">rpm</code> command:</p>
+<ul>
+  <li>query/verify</li>
+  <li>install/upgrade/remove</li>
+  <li>misc</li>
+</ul>
+
+<h3 id="queryverify">Query/Verify</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">rpm -q</code> command is used for querying either the database or an <code class="language-plaintext highlighter-rouge">.rpm</code> file (if you add the <code class="language-plaintext highlighter-rouge">-p</code> flag and file path) for info. For just a quick glance at package information, add the <code class="language-plaintext highlighter-rouge">-i</code> flag (otherwise all you get is the name of the package and usually one would be looking for info beyond that). For instance:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rpm -qip ~/Downloads/xbill-2.1-6.fc24.x86_64.rpm
+Name        : xbill
+Version     : 2.1
+Release     : 6.fc24
+Architecture: x86_64
+Install Date: (not installed)
+Group       : Amusements/Games
+(.... and so on ....)
+</code></pre></div></div>
+<p>Or this:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rpm -qi openssh
+Name        : openssh
+Version     : 7.2p2
+Release     : 14.fc24
+Architecture: x86_64
+Install Date: Thu 09 Mar 2017 09:24:21 AM MST
+Group       : Applications/Internet
+Size        : 1572891
+License     : BSD
+Signature   : RSA/SHA256, Wed 16 Nov 2016 06:32:46 AM MST, Key ID 73bde98381b46521
+Source RPM  : openssh-7.2p2-14.fc24.src.rpm
+Build Date  : Wed 16 Nov 2016 06:15:00 AM MST
+(.... and so on ....)
+</code></pre></div></div>
+
+<p>One option that could be useful is to check dependencies using <code class="language-plaintext highlighter-rouge">-R</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rpm -qpR xbill-2.1-6.fc24.x86_64.rpm
+/bin/sh
+/bin/sh
+/bin/sh
+config(xbill) = 2.1-6.fc24
+hicolor-icon-theme
+libatk-1.0.so.0()(64bit)
+libc.so.6()(64bit)
+libc.so.6(GLIBC_2.2.5)(64bit)
+libc.so.6(GLIBC_2.3.4)(64bit)
+libc.so.6(GLIBC_2.4)(64bit)
+libc.so.6(GLIBC_2.7)(64bit)
+libcairo.so.2()(64bit)
+libfontconfig.so.1()(64bit)
+libfreetype.so.6()(64bit)
+libgdk-x11-2.0.so.0()(64bit)
+libgdk_pixbuf-2.0.so.0()(64bit)
+libgio-2.0.so.0()(64bit)
+libglib-2.0.so.0()(64bit)
+libgobject-2.0.so.0()(64bit)
+libgtk-x11-2.0.so.0()(64bit)
+libpango-1.0.so.0()(64bit)
+libpangocairo-1.0.so.0()(64bit)
+libpangoft2-1.0.so.0()(64bit)
+rpmlib(CompressedFileNames) &lt;= 3.0.4-1
+rpmlib(FileDigests) &lt;= 4.6.0-1
+rpmlib(PayloadFilesHavePrefix) &lt;= 4.0-1
+rpmlib(PayloadIsXz) &lt;= 5.2-1
+rtld(GNU_HASH)
+</code></pre></div></div>
+
+<p>Query options include displaying a changelog, config files, doc files, all files, requires, depends, and others. Check <code class="language-plaintext highlighter-rouge">man rpm</code> for more info.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">rpm -V</code> (capital V) allows one to <em>verify</em> packages, meaning comparing the files, settings, etc of an installed package against what the package would normally provide by default.</p>
+
+<p>Other options include <code class="language-plaintext highlighter-rouge">-l</code> for listing all files associated with the package, <code class="language-plaintext highlighter-rouge">-c</code> for listing only config files, <code class="language-plaintext highlighter-rouge">-d</code> for only doc files, <code class="language-plaintext highlighter-rouge">--provides</code> to list what <em>capabilities</em> (commands) a package provides. There are other options for querying as well. Check <code class="language-plaintext highlighter-rouge">man rpm</code> for more info.</p>
+
+<p>Verifying packages can be done using <code class="language-plaintext highlighter-rouge">-V</code> (capital V). My observation is that if you run it and get nothing back, that means the package is a-ok. It will only return something if there’s an issue. Here’s an example:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ rpm -V xbill
+S.5....T.  d /usr/share/doc/xbill/ChangeLog
+missing   c /var/games/xbill/scores
+</code></pre></div></div>
+
+<p>The ChangeLog was modified by me, and the other thing was just apparently gone for some reason. There went my high scores. Dang.</p>
+
+<h3 id="installupgraderemove">Install/Upgrade/Remove</h3>
+
+<p>Very basic. These options:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-i</code> install</li>
+  <li><code class="language-plaintext highlighter-rouge">-U</code> upgrade</li>
+  <li><code class="language-plaintext highlighter-rouge">-F</code> freshen</li>
+  <li><code class="language-plaintext highlighter-rouge">-e</code> erase</li>
+</ul>
+
+<p>First is to install, that’s basic. Just <code class="language-plaintext highlighter-rouge">rpm -i &lt;path to package&gt;</code>.</p>
+
+<p>The upgrade (<code class="language-plaintext highlighter-rouge">-U</code>) option just installs the package if its version is greater than what’s currently installed (or if the package isn’t installed at all).</p>
+
+<p>To freshen (<code class="language-plaintext highlighter-rouge">-F</code>) means to ONLY upgrade, and ONLY if the package is already installed.</p>
+
+<p>Lastly, erase (<code class="language-plaintext highlighter-rouge">-e</code>) means just that - erase the package from the system. By defalt it also removes dependencies.</p>
+
+<p>There are more options to make the behavior of these more specific. Check <code class="language-plaintext highlighter-rouge">man rpm</code> for more info.</p>
+
+<h3 id="miscellaneous">Miscellaneous</h3>
+
+<p>These are things that would probably never be used by the average <code class="language-plaintext highlighter-rouge">rpm</code> user. Not sure. Check the man page, but the misc items can show what values <code class="language-plaintext highlighter-rouge">rpm</code> would use according to config file values, and you can adjust permissions of files owned by packages.</p>
+:ET

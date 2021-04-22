@@ -1,0 +1,43 @@
+I"�<p>I had a bunch of problems getting a discord bot going. Here’s what I did:</p>
+
+<ul>
+  <li>Registered an app and set up a bot user.</li>
+  <li>Sign into the gateway (only required once, but it won’t let your bot send messages otherwise). I ran this JS snippet in the console of Chrome:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var ws = new WebSocket('wss://gateway.discord.gg');
+
+mystring = JSON.stringify({
+ "op": 2,
+ "d": {
+ "token": "&lt;bot token&gt;",
+ "properties": {
+ "$os": "linux",
+ "$browser": "sometestingbrowser",
+ "$device": "sometestingdevice",
+ "$referrer": "",
+ "$referring_domain": "",
+ },
+ "compress": true,
+ "large_threshold": 250,
+ } 
+})
+
+ws.send(mystring)
+
+</code></pre></div></div>
+
+<ul>
+  <li>POSTed to the API server:</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>discord_body='this is my variabled message'
+echo "{\"content\":\"$discord_body\"}" | curl -v -H "Authorization: MTgzOTY1MDU1NDQ2OTQxNjk4.CiNoWw.WnZ_PiKSWVg5Nrq4JlVud37j76Q" -H "User-Agent: myBotThing (https://scooterx3.net, v0.1)" -H "Content-Type: application/json" -X POST --data-binary "@-" https://discordapp.com/api/channels/175975476253163521/messages
+</code></pre></div></div>
+
+<p>And that pretty much wraps it up. Not a hugely awesome bunch of documentation but it’ll trigger my brain if I need it in the future.</p>
+
+<p>Edit Oct 30, 2017:</p>
+
+<p>Cleaned up the format. Also a note: I acknowledge that I did paste the actual authorization token above, but it’s invalid now. Don’t be like me; keep your tokens/keys secret.</p>
+:ET

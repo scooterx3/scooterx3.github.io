@@ -1,0 +1,9 @@
+I"@<p>Shutdown does a few things:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>shutdown -P #powers off the machine
+shutdown -r #reboots the thing
+shutdown -h #halts (but doesn't necessarily power off) the machine
+</code></pre></div></div>
+
+<p>That’s fun!</p>
+:ET

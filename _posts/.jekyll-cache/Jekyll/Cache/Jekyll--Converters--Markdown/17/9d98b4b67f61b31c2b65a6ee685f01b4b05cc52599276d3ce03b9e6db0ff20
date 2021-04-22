@@ -1,0 +1,14 @@
+I" <p>This is a method I learned recently, figured I’d write it down.</p>
+
+<p>Start with the number that you’re trying to convert. Divide it by two. If the result is even, leave a <em>zero</em> behind and put the result to the left of the original number. If the result is odd, put the result <em>minus the remainder</em> to the left and leave a <em>one</em> behind.</p>
+
+<p>Basically, even results get a <code class="language-plaintext highlighter-rouge">0</code>, odd results get a <code class="language-plaintext highlighter-rouge">1</code>.</p>
+
+<p>Example (convert 240 to binary):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1	3	7	15	30	60	120	240
+1	1	1	1	0	0	0	0
+</code></pre></div></div>
+
+<p>Thus, 240 in binary is 11110000.</p>
+:ET

@@ -1,0 +1,31 @@
+I"=<p>I always had problems with my PS1 variable. It would show up like this (in green):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username@boxname:[~/Documents]
+$
+</code></pre></div></div>
+
+<p>The idea was to have something bright to easily see the prompts while scrolling back up, and drop down a new line so I could allow the directory path to get as long as needed without reducing the amount of space I had to type in. Though the PROBLEM I had with it was that it prevented me from properly editing a command retrieved from history by pushing the up arrow on the keyboard. The resulting command would get scrambled up and give wrong output.</p>
+
+<p>Here’s the PS1 I was using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\[\e]0;\u@\h: \w\a\]\e[32;1m\u@\h:[\w]\n$\e[0m
+</code></pre></div></div>
+
+<p>Apparently, in setting colors like so:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\e[32;1m
+</code></pre></div></div>
+
+<p>It threw bash off on the length of the prompt (bash thought the prompt was longer than it actually was). Supposedly the way to get bash to understand how long the prompt is is to wrap the color statements in some square brackets. I didn’t have any luck doing that with the raw statements but instead had to set variables as follows:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>green=$(tput setaf 2); 
+reset=$(tput sgr0); 
+bold=$(tput bold); 
+PS1="\[\e]0;\u@\h: \w\a\]\[$bold$green\]\u@\h:[\w]\n$\[$reset\] "; 
+clear
+</code></pre></div></div>
+
+<p>Got that info <a href="http://askubuntu.com/questions/251154/long-lines-overlap-in-bash-ps1-customized-prompt">here</a> and <a href="http://askubuntu.com/questions/111840/ps1-problem-messing-up-cli">here</a>.</p>
+
+<p>Also that tput command is pretty interesting. For some good info on that one, check <a href="http://wiki.bash-hackers.org/scripting/terminalcodes">here</a>.</p>
+:ET

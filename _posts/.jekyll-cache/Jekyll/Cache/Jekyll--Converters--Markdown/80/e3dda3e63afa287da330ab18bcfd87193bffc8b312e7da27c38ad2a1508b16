@@ -1,0 +1,12 @@
+I"u<p>I heard about CPU steal recently. Had no idea what it was, so went looking. I’ll write here what I find.</p>
+
+<p>Hypervisors – those are the softwares that “lie” to a guest OS in telling it what kinds of resources it has available (keyboard, mouse, ram, cpu, disk space, etc)</p>
+
+<p>Class 1 hypervisor – a virtualization host that runs on the bare metal. It’s own OS, per se. Lightweight.</p>
+
+<p>Class 2 hypervisor – a piece of software that runs in an OS, such as vmware or virtualbox</p>
+
+<p>So anyway, the hypervisor tells a virtual guest that it’s got such-and-such CPU in it, so the kernel says “cool man, thanks” and starts using it. The guest has no idea that there’s actually another (or multiple) other guests on the same machine all using the same CPU. The hypervisor has to balance things out between guests, and while one guest is trying to use 100% CPU, another might be trying to use CPU as well. Combined, they can’t use more than 100% of the CPU though, naturally. The guest kernels can only report that there is some time that it’s unable to use the processor. In TOP we’ll see a metric called ‘st%’ and that’s the “steal” percentage. That’s the fraction of time that the guest can’t use the CPU. The kernel has no idea why, but of course it’s because too many VMs are “fighting” for the same CPU time, of which there isn’t enough to meet everyone’s demands.</p>
+
+<p>Here’s a good case study I found that helped me understand it: <a href="http://www.stackdriver.com/understanding-cpu-steal-experiment/">http://www.stackdriver.com/understanding-cpu-steal-experiment/</a></p>
+:ET

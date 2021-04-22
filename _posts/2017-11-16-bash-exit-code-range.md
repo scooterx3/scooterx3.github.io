@@ -1,6 +1,7 @@
 ---
 title: Bash exit code range
 tag: bash
+layout: post
 ---
 
 I just learned that bash's exit codes only go as high as 255. If you go to 256, it loops back around to 0 again. Playing with sed here (the number following the `q` command tells it to return that particular exit code): 

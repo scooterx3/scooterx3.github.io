@@ -1,0 +1,9 @@
+I"�<p>Real simple:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/local/cpanel/bin/backup --force
+</code></pre></div></div>
+
+<p>Just that single command. So it IS possible. Everyone always tells me it isn’t… This force-runs the daily backup option. Mind you, it does so for ALL of the accounts listed in WHM.</p>
+
+<p>One thing I noticed is it sticks the backup in /backup/<date> &#8230; Hmm&#8230;</date></p>
+:ET

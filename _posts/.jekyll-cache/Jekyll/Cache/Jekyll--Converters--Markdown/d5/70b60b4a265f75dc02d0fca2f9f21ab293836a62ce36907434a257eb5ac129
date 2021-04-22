@@ -1,0 +1,76 @@
+I"�<p>I was recently asked how to show threads instead of PIDs using the ‘ps’ command. I wanted to find out why that’s even desired in the first place. I don’t have experience dealing with such things. I did learn new things, but still don’t really know why one would care about listing the threads. Can one manipulate them? Wouldn’t it cause erratic behavior? Is the killing of individual threads of a process allowed from outside? Or would it kill the whole process? I don’t know!</p>
+
+<h2 id="threads-are-little-pieces-insideof-processes">Threads are little pieces inside of processes</h2>
+
+<p>I think of processes to the overall computer as I do threads to the process. There are some differences. Here’s a little bit of an outline:</p>
+
+<h3 id="processes">Processes</h3>
+
+<ul>
+  <li>Do not share address space</li>
+  <li>Execute independently of one another. Synchronization is handled by the kernel.</li>
+  <li>Context switching between processes is slow</li>
+  <li>interaction between processes handled via IPC – inter-process communication</li>
+</ul>
+
+<h3 id="threads">Threads</h3>
+
+<ul>
+  <li>Do share address space (within the same process)</li>
+  <li>Thread synchronization is handled by the parent process</li>
+  <li>Context switching between threads is fast</li>
+  <li>Threads under the same process share memory, text, etc so can easily interact</li>
+  <li>threads don’t know which thread created them</li>
+</ul>
+
+<p>Furthermore:</p>
+
+<ul>
+  <li>Threads in the same process share:
+    <ul>
+      <li>Process instructions</li>
+      <li>Most data</li>
+      <li>open files (descriptors)</li>
+      <li>signals and signal handlers</li>
+      <li>current working directory</li>
+      <li>User and group id</li>
+    </ul>
+  </li>
+  <li>Each thread has a unique:
+    <ul>
+      <li>Thread ID</li>
+      <li>set of registers, stack pointer</li>
+      <li>stack for local variables, return addresses</li>
+      <li>signal mask</li>
+      <li>priority</li>
+      <li>Return value: <tt>errno</tt></li>
+    </ul>
+  </li>
+</ul>
+
+<p>Ok, so that was honestly just kindof a dump of info. What I’ve learned though is that there are ways to display the threads that pertain to a particular process. The first time I saw it and realized what it was, I was using htop and noticed my starbound_server process had what I thought were several instances of the same process running under it:</p>
+
+<p><img class="aligncenter" src="http://69.89.26.186/screenshots/20160923-185356-8607.png" width="759" height="173" />What I didn’t realize was that those green lines are the THREADS  under pid2499. What I don’t understand yet is why they appear to have their own PIDs. Because in <code class="language-plaintext highlighter-rouge">ps H 2499</code> I get:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[riley@whitey ~]$ ps H 2499 
+ PID TTY STAT TIME COMMAND
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:02 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+ 2499 pts/1 Sl+ 0:00 ./starbound_server
+</code></pre></div></div>
+
+<p>Where it’s apparent that they are displaying as all using the same PID, which I assume is supposed to make it so it’s obvious that they’re all threads of the same process.</p>
+
+<p>Anyway, the original question is now answered. <code class="language-plaintext highlighter-rouge">ps H</code> is the appropriate command to show the threads of a process.</p>
+
+<p>Something else I’ve learned is that there’s apparently a max number of processes. It’s found in `/proc/sys/kernel/pid_max`, or at least on Ubuntu and CentOS.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+:ET

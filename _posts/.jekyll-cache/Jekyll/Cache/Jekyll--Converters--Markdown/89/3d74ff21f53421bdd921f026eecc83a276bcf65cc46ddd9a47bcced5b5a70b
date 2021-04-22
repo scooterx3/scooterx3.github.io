@@ -1,0 +1,26 @@
+I"ˆ<p>Change target / mode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl isolate &amp;lt;target&amp;gt;
+</code></pre></div></div>
+
+<p>Find default mode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl get-default
+</code></pre></div></div>
+
+<p>Set a default mode:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl set-default &amp;lt;target&amp;gt;
+</code></pre></div></div>
+
+<p>Note the <target> needs to end in &#8220;.target&#8221; ie:</target></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>systemctl set-default multi-user.target
+</code></pre></div></div>
+
+<p>Locations:</p>
+
+<p>/etc/systemd/system</p>
+
+<p>/usr/lib/systemd/system</p>
+:ET

@@ -1,0 +1,6 @@
+I"o<p>So apparently <em>$<tt class="USERINPUT"><b>variable</b></tt> is actually a simplified form of <tt class="USERINPUT"><b>${variable}. </b></tt></em><tt class="USERINPUT"><b>Now I know! </b></tt></p>
+
+<p>http://www.tldp.org/LDP/abs/html/varsubn.html</p>
+
+<p>I’m considering making that my standard code, if that’s how they’re <em>supposed</em> to be…</p>
+:ET

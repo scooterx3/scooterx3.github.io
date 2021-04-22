@@ -1,0 +1,37 @@
+I"�<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>What in the heck is it? How does it work?
+</code></pre></div></div>
+
+<p>The umask is a way to determine for a given user what the permissions of newly created files and directories have. Supposedly Linux wants 666 and 777 to be default perms for files and directories, respectively. Notice when you make a file, it’s set to 644, and directories to 755 though. That’s because this umask value is taking effect. On my machine anyway, the default umask is 022 (—-w–w-). Let’s put those together:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rw-rw-rw- &amp;lt;&amp;lt; file (666)
+----w--w- &amp;lt;&amp;lt; umask (022)
+rw-r--r-- &amp;lt;&amp;lt; difference
+</code></pre></div></div>
+
+<p>Here’s an example with a directory:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rwxrwxrwx &amp;lt;&amp;lt; dir
+----w--w- &amp;lt;&amp;lt; mask
+rwxr-xr-x &amp;lt;&amp;lt; difference
+</code></pre></div></div>
+
+<p>You set the mask to determine which permission type to BLOCK or NULLIFY. If the mask has a particular bit set, that means it blocks that particular bit from being in effect in the result.</p>
+
+<p>For fun, let’s set a different umask: 0200</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rw-rw-rw- &amp;lt;&amp;lt; file
+-w------- &amp;lt;&amp;lt; umask
+r--rw-rw- &amp;lt;&amp;lt; difference
+</code></pre></div></div>
+
+<p>So let’s take it a step further and see what happens when we’re using the decimal versions:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>666 &amp;lt;&amp;lt; file
+200 &amp;lt;&amp;lt; mask
+355 &amp;lt;&amp;lt; difference
+
+
+</code></pre></div></div>
+
+<p>I’ll admit, it really doesn’t make sense when doing it with just the numbers.</p>
+:ET

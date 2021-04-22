@@ -1,33 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{ site.name }}{% if page.title %} | {{ page.title }} {% endif %}</title>
-	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/pygments/monokai.css">
-	<!-- <script src="/assets/js/javascript.js"></script> -->
-</head>
+---
+layout: page
+# All the Tags of posts.
+---
 
-<body>
-	<div id="rightpane">
-	{% include sidebar.html %}
-	<div id="contentcontainer">
-		<div id="content">
-		<h1 class="posttitle" >Tags</h1>
-		{% assign tags = site.tags | sort %}
-		{% for tag in tags %}
-			<ul>
-			{% assign tagname = tag | first %}
-			<h2 id="tag_{{tagname|slugify}}">{{ tagname }}</h2>
-			{% for post in site.posts %}
-				{% if post.tags contains tagname %}
-					<li><a class='posttitle' href="{{ post.url }}">{{ post.title }}</a></li>
-				{% endif %}
-			{% endfor %}
-			</ul>
-			<hr>
-		{% endfor %}
-		</div>
-	</div>
+<div id="tags" class="d-flex flex-wrap ml-xl-2 mr-xl-2">
+
+  {% assign tags = "" | split: "" %}
+  {% for t in site.tags %}
+    {% assign tags = tags | push: t[0] %}
+  {% endfor %}
+
+  {% assign sorted_tags = tags | sort_natural %}
+
+  {% for t in sorted_tags %}
+    <div>
+      <a class="tag" href="{{ site.baseurl }}/tags/{{ t | slugify | url_encode }}/">{{ t }}<span class="text-muted">{{ site.tags[t].size }}</span></a>
+    </div>
+  {% endfor %}
+
 </div>
-</body>
-</html>

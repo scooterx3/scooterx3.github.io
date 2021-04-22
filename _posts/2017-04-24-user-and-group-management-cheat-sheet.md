@@ -1,6 +1,7 @@
 ---
 title: User and Group Management Cheat Sheet
 tags: users
+layout: post
 ---
 
 > "I fight for the users!" -Tron

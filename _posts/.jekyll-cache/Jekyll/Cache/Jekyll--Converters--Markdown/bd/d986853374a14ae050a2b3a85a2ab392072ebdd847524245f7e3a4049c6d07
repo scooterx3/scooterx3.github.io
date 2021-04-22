@@ -1,0 +1,21 @@
+I"7<p>Just was playing around with it, wanted to write a few things down. I typically use telnet to test for a particular port. Essentially the basic usage is:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc some.domain.com 21
+</code></pre></div></div>
+
+<p>That will connect to some.domain.com on port 21 if possible. What I want to use it for though is to just quickly check a series of ports. Here’s the command I like currently:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nc portquiz.net 21 -zv
+</code></pre></div></div>
+
+<p>the -z only checks for connection, but /dev/nulls any response from the server. The -v goes with it and just displays a message saying “hey yo, it connected!”</p>
+
+<p>I know this thing handles ranges by using something like ‘1-10’ as the port, but doesn’t seem to handle an array of individual ports, say for checking just FTP, SSH and perhaps IMAP all in the same command. I want to write a wrapper to handle that. I ran into a snag though in Bash dealing with $@ (array of arguments) which I was going to leverage so as to be able to run something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scan portquiz.net 21 22 143
+</code></pre></div></div>
+
+<p>But that’s another topic for another day.</p>
+
+<p>I want to play around with it some for setting up a listening server. Just to toy around, I really don’t have anything I’d need to listen to :P.</p>
+:ET

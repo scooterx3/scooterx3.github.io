@@ -1,0 +1,14 @@
+I",<p>The only thing I really need to know is that this command displays all of them from the current session:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>env&lt;del&gt;&lt;/del&gt;
+</code></pre></div></div>
+
+<p>But I guess I’ll write down some other stuff too.</p>
+
+<p>The ‘<strong><em>export</em></strong>‘ command makes a variable available to any children of the current session. That’s the only real reason that it should be used. Otherwise you can prepend to the path for instance using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PATH=/home/myself/bin/:$PATH
+</code></pre></div></div>
+
+<p>You can unset variables using the ‘<em><strong>unset</strong></em>‘ command</p>
+:ET

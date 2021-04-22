@@ -1,0 +1,12 @@
+I"�<p>Change runlevel:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>telinit 5
+</code></pre></div></div>
+
+<p>‘5’ above being the runlevel you want to switch to.</p>
+
+<p>Default runlevel specified in /etc/inittab:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;tt class="computeroutput"&gt;id:5:initdefault:&lt;/tt&gt;
+</code></pre></div></div>
+:ET

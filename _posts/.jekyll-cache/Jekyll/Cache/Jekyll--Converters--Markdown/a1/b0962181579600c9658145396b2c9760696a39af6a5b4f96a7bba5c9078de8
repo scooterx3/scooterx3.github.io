@@ -1,0 +1,18 @@
+I"�<p>When uploading to Google Docs, the PDF doesn’t make it through without getting beat up. My page numbers are missing, the table of contents is gone, etc. I heard that if one converts the PDF to ePub, the data is preserved. I know of a program called Calibre that allows one to convert PDF to ePub. <a href="http://askubuntu.com/questions/169618/is-there-a-way-to-convert-a-pdf-file-to-epub-format-without-using-calibre">This post suggested some commands</a>:</p>
+
+<p> </p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ebook-convert file.pdf file.epub
+</code></pre></div></div>
+
+<p>If the output looks a little wrong – try this</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ebook-convert file.pdf file.epub --enable-heuristics
+</code></pre></div></div>
+
+<p>It will try a “smart” way to convert. Not perfect, but can work well in most conversions.</p>
+
+<hr />
+
+<p>So I tried this, and it honestly didn’t work out so well. Sure, I had an epub formatted book but it didn’t at all match the layout of the original document and appeared all jumbled.</p>
+:ET

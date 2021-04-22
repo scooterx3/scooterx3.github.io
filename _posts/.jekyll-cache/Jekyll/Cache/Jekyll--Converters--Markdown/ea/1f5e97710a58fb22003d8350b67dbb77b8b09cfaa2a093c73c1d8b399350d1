@@ -1,0 +1,2 @@
+I"<p>I had heard at some point of an app that would allow one to edit .odt files in the browser, and apparently also .doc and .docx files (microsoft). I had to just download and unpack the app to the right location in my ownCloud instance, then install libreoffice (I prefer libre over open for some reason). One thing I didn’t know though was that I needed to install the “libreoffice-headless” package so it wouldn’t try to use the x server (nonexistent) on the machine. It was trying to, but failed a bunch naturally.</p>
+:ET

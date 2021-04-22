@@ -1,0 +1,10 @@
+I"�<p>I recently learned about this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(( 1 )) &amp;&amp; echo "true" || echo "false"
+</code></pre></div></div>
+
+<p>Which is a great way to do an if statement on a single line, if you ask me. I could just do <em>if [[ cond ]]; do something else; another thing; fi</em> but I think this one is pretty slick.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[[ cond ]] &amp;&amp; &amp;lt;what happens if true&amp;gt; || &amp;lt;what happens if false&amp;gt;
+</code></pre></div></div>
+:ET

@@ -4,6 +4,7 @@ tags:
  - bash
  - file descriptors
  - process substitution
+layout: post
 ---
 
 I work with many servers each day, and more often than not I wind up sourcing a script or two from one of my remote servers, thusly: 

@@ -1,0 +1,14 @@
+I"í<p>Just a quick reference</p>
+
+<ul>
+  <li>Regular file (-)</li>
+  <li>Directory (d)</li>
+  <li>Symlink (l)</li>
+  <li>Named pipe (p)</li>
+  <li>Socket (s)</li>
+  <li>Character device (c)</li>
+  <li>Block device (b)</li>
+</ul>
+
+<p>Â </p>
+:ET

@@ -1,0 +1,28 @@
+I"�	<p>I was accustomed to using sed’s <code class="language-plaintext highlighter-rouge">-i</code> option but never realized until now that it can be used to back up the original file before overwriting.</p>
+
+<p>One can append a suffix to the <code class="language-plaintext highlighter-rouge">-i</code> option thusly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -i.backup 's|foo|bar|g' file.txt
+</code></pre></div></div>
+
+<p>This results in the original <code class="language-plaintext highlighter-rouge">file.txt</code> being copied to <code class="language-plaintext highlighter-rouge">file.txt.backup</code>.</p>
+
+<p>Not only that, but asterisks can be placed in the suffix. Every asterisk that appears in the suffix will be replaced by the entire filename. That way you can dump your files into another directory (providing the directory exists already):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed -ibak/* 's|foo|bar|g' file.txt
+</code></pre></div></div>
+
+<p>This moved <code class="language-plaintext highlighter-rouge">file.txt</code> to <code class="language-plaintext highlighter-rouge">bak/file.txt</code>, then overwrote the original with the new data. Sweet. The wording in the manual was strange at first but now it makes sense. Here’s what I was reading:</p>
+
+<blockquote>
+  <p>This option specifies that files are to be edited in-place. GNU sed does this by creating a temporary file and sending output to this file rather than to the standard output.1.</p>
+
+  <p>This option implies -s.</p>
+
+  <p>When the end of the file is reached, the temporary file is renamed to the output file’s original name. The extension, if supplied, is used to modify the name of the old file before renaming the temporary file, thereby making a backup copy2).</p>
+
+  <p>This rule is followed: if the extension doesn’t contain a *, then it is appended to the end of the current filename as a suffix; if the extension does contain one or more * characters, then each asterisk is replaced with the current filename. This allows you to add a prefix to the backup file, instead of (or in addition to) a suffix, or even to place backup copies of the original files into another directory (provided the directory already exists).</p>
+
+  <p>If no extension is supplied, the original file is overwritten without making a backup.</p>
+</blockquote>
+:ET

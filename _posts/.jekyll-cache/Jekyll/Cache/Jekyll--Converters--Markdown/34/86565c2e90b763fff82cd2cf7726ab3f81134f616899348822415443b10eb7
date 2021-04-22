@@ -1,0 +1,11 @@
+I" <p>rpm2cpio and yumdownloader</p>
+
+<p>If you ever happen to want to get some files from an RPM to do whatever you want with them, you could:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yumdownloader &amp;lt;package&amp;gt; 
+rpm2cpio &amp;lt;package.rpm&amp;gt; &amp;gt; file.cpio
+cpio -idv &amp;lt; file.cpio # extracts from file.cpio all package files into the current working dir
+</code></pre></div></div>
+
+<p>Pretty simple and small, but a good tool to have if you need it.</p>
+:ET

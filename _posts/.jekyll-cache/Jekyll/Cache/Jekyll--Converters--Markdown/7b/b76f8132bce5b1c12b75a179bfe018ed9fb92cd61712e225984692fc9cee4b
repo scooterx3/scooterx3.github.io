@@ -1,0 +1,183 @@
+I"T5<p>The <code class="language-plaintext highlighter-rouge">yum</code> (Yellowdog Updater, Modified) tool was a <em>rewrite</em> of another tool called <code class="language-plaintext highlighter-rouge">yup</code> (Yellowdog UPdater). It’s just an RPM-based package manager, good for installing and removing software (including dependencies) from one’s system in a safe, easy manner. People liked it, it eventually just became “the thing to use” on RPM-based systems (such as Fedora and family, Yellow Dog itself, and tons others).</p>
+
+<p>Their homepage is at <a href="http://yum.baseurl.org">yum.baseurl.org</a>.</p>
+
+<h2 id="repositories">Repositories</h2>
+
+<p>To function, Yum relies on repositories (‘repos’ for short) which are locations online that store RPM packages. When one specifies a particular package to install, Yum looks through a list of repos for what was specified, then downloads and installs it (if available in one of the repos), along with any other programs it may depend on.</p>
+
+<p>On a given system, repo specifications are stored at <code class="language-plaintext highlighter-rouge">/etc/yum.repos.d/*.repo</code>. These vary according to whatever the admin defines or whatever a distro has set up as default. The <code class="language-plaintext highlighter-rouge">.repo</code> files are just short config files that may contain something from this non-exhaustive list:</p>
+
+<ul>
+  <li>id, a machine-readable name of the repo in <code class="language-plaintext highlighter-rouge">[brackets]</code>, used when needing to specify a repo in a script</li>
+  <li>name=, human-readable name of the repo</li>
+  <li>baseurl=, a URL to the repository/directory</li>
+  <li>enabled=, boolean value (1 or 0), determines whether <code class="language-plaintext highlighter-rouge">yum</code> will try to use this repo or no</li>
+  <li>gpgcheck=, boolean value, specify whether GPG signature checking should take place</li>
+  <li>gpgkey=, URL to the gpg key</li>
+  <li>exclude=, list of packages to exclude</li>
+  <li>includepkgs=, list of packages to include</li>
+</ul>
+
+<p>The first 4 (<code class="language-plaintext highlighter-rouge">id</code>, <code class="language-plaintext highlighter-rouge">name</code>, <code class="language-plaintext highlighter-rouge">baseurl</code> and <code class="language-plaintext highlighter-rouge">enabled</code>) are required, the others are optional. Here’s an example entry in a <code class="language-plaintext highlighter-rouge">.repo</code> file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[remi-safe]
+name=Safe Remi's RPM repository for Enterprise Linux 7 - $basearch
+#baseurl=http://rpms.remirepo.net/enterprise/7/safe/$basearch/
+#mirrorlist=https://rpms.remirepo.net/enterprise/7/safe/httpsmirror
+mirrorlist=http://rpms.remirepo.net/enterprise/7/safe/mirror
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+</code></pre></div></div>
+
+<p>Note that one single <code class="language-plaintext highlighter-rouge">.repo</code> file may contain specs for multiple repositories. The above was one entry of two.</p>
+
+<p>You can get a quick list of which repos are on your system and some detail about them by running <code class="language-plaintext highlighter-rouge">yum repoinfo</code>.</p>
+
+<h3 id="installing-new-repositories">Installing New Repositories</h3>
+
+<p>You could create a <code class="language-plaintext highlighter-rouge">.repo</code> file manually, but typically repo mantainers will provide something such as this line from <em>RPM Fusion</em>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-7.noarch.rpm
+</code></pre></div></div>
+
+<p>So you can just use <code class="language-plaintext highlighter-rouge">yum</code> to install a new repo. Convenient. I imagine <code class="language-plaintext highlighter-rouge">sudo rpm -i rpmfusion-free-release-7.noarch.rpm</code> would also do the trick.</p>
+
+<h2 id="install-and-update-packages">Install And Update Packages</h2>
+
+<p>Yum’s bread and butter is installing software. All you’d need to do is this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum install foo
+</code></pre></div></div>
+
+<p>Then it would install the <code class="language-plaintext highlighter-rouge">foo</code> package. The magic comes in though when <code class="language-plaintext highlighter-rouge">foo</code> has dependencies (relies on other packages to function). Yum will automatically recognize which packages are required and install them (if they’re not already present on the system).</p>
+
+<p>Upgrading is about the same. One can upgrade individually:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum upgrade foo
+</code></pre></div></div>
+<p>or</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum upgrade
+</code></pre></div></div>
+<p>In the first case, only <code class="language-plaintext highlighter-rouge">foo</code> is updated, as well as its dependencies. In the latter case, all packages across the system are updated to the latest version available in the repositories.</p>
+
+<p>Many options are available here though, including “upgrading” to an older version, etc. Check the man for info.</p>
+
+<h2 id="remove-packages">Remove Packages</h2>
+
+<p>Dependency resolution goes both ways, and when using <code class="language-plaintext highlighter-rouge">yum remove foo</code>, by default yum will remove any packages that may depend on <code class="language-plaintext highlighter-rouge">foo</code> (since they won’t work anymore and would only be taking up space is my guess). Here’s a theoretical “tree” of packages that happen to be installed on a system:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+|-B
+|-C
+D
+|-E
+  |-F
+</code></pre></div></div>
+
+<p>B and C depend on A. F depends on E which in turn depends on D.</p>
+
+<p><code class="language-plaintext highlighter-rouge">yum remove B</code> would result in:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+|-C
+D
+|-E
+  |-F
+</code></pre></div></div>
+<p>Notice that B is the only thing that’s gone.</p>
+
+<p><code class="language-plaintext highlighter-rouge">yum remove E</code> would result in:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+|-B
+|-C
+D
+</code></pre></div></div>
+
+<p>There’s a cool thing called <code class="language-plaintext highlighter-rouge">autoremove</code> that utilizes a special config option which will remove a package, any packages that depend on it, but also packages that were only there because what you removed depended on them (but nothing else).</p>
+
+<p><code class="language-plaintext highlighter-rouge">yum autoremove B</code> would still result in:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+|-C
+D
+|-E
+  |-F
+</code></pre></div></div>
+
+<p>But <code class="language-plaintext highlighter-rouge">yum autoremove E</code> would be a bit different:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A
+|-B
+|-C
+</code></pre></div></div>
+
+<p>That’s because D was only there because E depended on it. So it was removed! Cool! That’s one tool for fighting against needless bloat on a system.</p>
+
+<p>It’s also possible to <code class="language-plaintext highlighter-rouge">yum autoremove</code> (without specifying a package) and it’ll just remove any of those packages that were only installed automatically to resolve some dependency. Those packages are known as ‘leaf’ packages. Note it won’t remove anything that was explicitly installed by the user, only those that Yum calculated were needed.</p>
+
+<h2 id="groups">Groups</h2>
+
+<p>Groups in yum are just regular packages that are set to “require” other packages. Yum has a <code class="language-plaintext highlighter-rouge">yum groups</code> command which has subcommands such as <code class="language-plaintext highlighter-rouge">group install</code> or <code class="language-plaintext highlighter-rouge">group remove</code> that can allow one to act on groups. Essentially all we have to do here is specify a group to install or remove or whatever just like we do for individual packages:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum groupinstall foo
+</code></pre></div></div>
+
+<p>You can see a list of groups by doing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum grouplist -v
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">-v</code> helps because it gives the <code class="language-plaintext highlighter-rouge">id</code> of each group as well as a human readable name. That ID can be used to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum groupinfo &lt;id&gt;
+</code></pre></div></div>
+
+<h2 id="database">Database</h2>
+
+<p>Yum maintains its own database under /var/cache/yum/ which apparently stores info beyond what’s in the RPM database (though they asked a couple of times if they could just store this info inside of the RPM database but never got a green light). It isn’t actually a database though, but a flat file structure. It’s supposedly there for making life with Yum a bit nicer for the user, but isn’t apparently <em>necessary</em> for proper functionality. The following is from their <a href="http://yum.baseurl.org/wiki/YumDB">yumdb page</a>:</p>
+
+<blockquote>
+  <p>So here’s a list of all the items that should be set for every package (from yumdb info) from 3.2.29 onwards:</p>
+
+  <ul>
+    <li>from_repo: the name of the repo from which the pkg was installed</li>
+    <li>from_repo_revision: Repo. revision. Or ctime for a local package.</li>
+    <li>from_repo_timestamp: Repo. timestamp. Or mtime for a local package.</li>
+    <li>reason: reason for installing this pkg (user, dep, etc)
+releasever: $releasever of the system at the time the pkg was installed (so you can look for pkgs which have * &gt; lingered across release updates)
+installed_by (3.2.28): The loginuid of the user who first installed this package (note that some tools which call yum don’t obey loginuid, this not being set is one of many problems that introduces). This doesn’t cross &gt; * Obsoletes.</li>
+    <li>changed_by (3.2.28): The loginuid of the user who last installed this package.</li>
+  </ul>
+
+  <p>These are known other keys:</p>
+
+  <ul>
+    <li>checksum_type: The type of the checksum for the installed pkg. Eg. md5, sha1, sha256.</li>
+    <li>checksum_data: The value of the checksum for the installed pkg.</li>
+    <li>origin_url (3.2.29): Requires a newer urlgrabber, this is the url that the package was download from.
+command_line: The command line used to install this pkg (only set if pkg. installed from a tool that has a * &gt; command line).</li>
+    <li>installonly: Not set by yum, but looked at to see if installonly packages should be automatically removed.</li>
+    <li>group_member (3.2.29+?): Set by yum if a package was installed as part of a “group install” (beta patch).</li>
+  </ul>
+</blockquote>
+
+<p>One can manipulate the yumdb by using the <code class="language-plaintext highlighter-rouge">yumdb</code> command. You can add notes, whatever. Very basic usage is just getting info for a package such as <code class="language-plaintext highlighter-rouge">yumdb info foo</code>. For more command options check <code class="language-plaintext highlighter-rouge">man yumdb</code>.</p>
+
+<p>Honestly, to me this sounds like regular ol’ metadata that should just be a part of the regular cache (see next section). As far as I can tell though, it’s separate. I don’t know why it’s separate. Maybe someday I will.</p>
+
+<h2 id="cache">Cache</h2>
+
+<p>Yum stores a cache at <code class="language-plaintext highlighter-rouge">/var/cache/yum/</code> of pretty much anything that can be retrieved from a remote repository. According to the man page, these items are all considered part of Yum’s cache:</p>
+
+<ul>
+  <li>expiration time (expire-cache) - when the data for a particular repository is considered out of date and should be refreshed</li>
+  <li>packages - full <code class="language-plaintext highlighter-rouge">.rpm</code> packages downloaded from repositories</li>
+  <li>headers - something old versions of Yum used for dependency resolution</li>
+  <li>metadata - files which yum uses to determine the remote availability of packages</li>
+  <li>dbcache - an sqlite db used for faster access to metadata (so there are flat files AND a db?? That sounds efficient)</li>
+  <li>plugins - each plugin may or may not cache info</li>
+</ul>
+
+<p>One can clear the cache by simply using <code class="language-plaintext highlighter-rouge">yum clean bar</code> where <code class="language-plaintext highlighter-rouge">bar</code> could be one of the above specific items, or just use <code class="language-plaintext highlighter-rouge">all</code> to clear the whole thing.</p>
+:ET

@@ -1,0 +1,24 @@
+I"�<p>RPM = <strong>R</strong>edhat <strong>P</strong>ackage <strong>M</strong>anager</p>
+
+<p>YUM = <strong>Y</strong>ellowdog <strong>U</strong>pdater <strong>M</strong>odified</p>
+
+<p>Yum is different from APT in that it automagically does an update of the local cache when you’re checking a repository for whatever.</p>
+
+<p>Some YUM commands</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>yum search
+yum info
+yum install
+yum remove
+yum provides # shows what package provided a particular binary, file, etc
+yum update
+</code></pre></div></div>
+
+<p>Important paths:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/yum.conf # some configuration for yum, including the directory where repos are stored
+/etc/yum.repos.d/* # files in here determine which repos the system uses
+</code></pre></div></div>
+
+<p> </p>
+:ET

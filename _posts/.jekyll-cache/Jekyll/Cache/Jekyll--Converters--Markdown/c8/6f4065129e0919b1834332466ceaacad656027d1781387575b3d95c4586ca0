@@ -1,0 +1,13 @@
+I"g<p>Apparently variables are local to a given function simply by virtue of being defined within said function. No keyword needed:</p>
+
+<p> </p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def f():
+    s = 'some value'
+
+print(s)
+ERROR: You fool! s isn't defined!!
+</code></pre></div></div>
+
+<p> </p>
+:ET

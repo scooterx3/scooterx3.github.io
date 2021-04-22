@@ -1,0 +1,6 @@
+I"�<p><em><strong>dd</strong></em> – strictly works with block systems, not filesystems. It takes an input file (if), an output file(of) and block size as arguments. It copies everything block for block from one block device / file to another. That’s why you can use dd to create a bootable USB. it takes the <em>if</em> of an .iso and an <em>of</em> of /dev/sdb (a usb drive perhaps) and copies it straight over.  Requires sudo in many cases because we’re dealing directly with devices (/dev/sd*).</p>
+
+<p><em><strong>tar</strong></em> – works on the filesystem, not block systems directly.</p>
+
+<p><em><strong>cpio</strong></em> – stands for <em>copy-in, copy-out</em>. It’s obnoxious that one has to pipe the results of some other command into cpio for it to have a list of stuff to put together in an archive. And you have to redirect the output into somefile.cpio. The advantage here is that you could specify a bunch of really specific files using <em>find</em> and pipe that into cpio. If all you want is a backup of whatever is in a particular directory, then just use _tar. _A note: the ‘-d’ flag is __probably required for it’s correct operation (maybe a test q)</p>
+:ET

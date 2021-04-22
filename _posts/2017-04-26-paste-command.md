@@ -1,6 +1,7 @@
 ---
 title: paste - merge lines of files
 tags: paste
+layout: post
 ---
 
 The purpose of the `paste` command is to merge lines of files together. So for instance between file1 and file2, the default behavior is to paste the lines of the files side by side with a tab between them. 

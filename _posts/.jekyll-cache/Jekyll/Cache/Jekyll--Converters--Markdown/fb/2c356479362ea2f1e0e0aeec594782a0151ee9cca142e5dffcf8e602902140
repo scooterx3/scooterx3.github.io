@@ -1,0 +1,17 @@
+I"U<p>xargs – takes results from one command and uses them as arguments to another command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;lt;command1&amp;gt; | xargs &amp;lt;command2&amp;gt;
+</code></pre></div></div>
+
+<p>tee – takes stdin and prints to file and prints to screen. Thus to be able to capture and see output</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;lt;command1&amp;gt; | tee &amp;lt;filename&amp;gt;
+</code></pre></div></div>
+
+<p>Redirection</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&amp;lt;command&amp;gt; &amp;gt; file.txt 2&amp;gt;&amp;1
+</code></pre></div></div>
+
+<p>This sends stdin <em>and</em> stdout’s output to file.txt</p>
+:ET

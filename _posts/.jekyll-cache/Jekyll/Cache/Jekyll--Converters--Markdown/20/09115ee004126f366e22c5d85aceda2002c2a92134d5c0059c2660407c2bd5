@@ -1,0 +1,8 @@
+I"z<p>I just realized that both are places that one might put software not “native” to a system. I found <a href="http://unix.stackexchange.com/questions/11544/what-is-the-difference-between-opt-and-usr-local">this post</a> and here are the main points to get the gist:</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">/usr/local</code> is a place to install files built by the administrator, typically by using the <code class="language-plaintext highlighter-rouge">make</code> command. The idea is to avoid clashes with files that are part of the operating system…</p>
+
+  <p>On the other hand, <code class="language-plaintext highlighter-rouge">/opt</code> is a directory for installing unbundled packages, each one in its own subdirectory. They are already built whole packages provided by an independent third party software distributor.</p>
+</blockquote>
+:ET

@@ -1,0 +1,10 @@
+I"V<p>I just learned about the ‘SHOW CHARACTER SET’ statement; it lists all of the available character sets and their default collations on a particular mySQL server. Handy if you just need to know which character sets/collations a server does or does not support.</p>
+
+<p>The mySQL manual does say this though:</p>
+
+<blockquote>
+  <p>In cases where a character set has multiple collations, it might not be clear which collation is most suitable for a given application.</p>
+</blockquote>
+
+<p>And I’m not sure how to see if a char set does have multiple collations and what they might be.</p>
+:ET

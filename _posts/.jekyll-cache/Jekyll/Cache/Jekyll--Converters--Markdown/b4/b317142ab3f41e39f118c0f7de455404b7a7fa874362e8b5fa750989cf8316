@@ -1,0 +1,27 @@
+I"	<p>I work with many servers each day, and more often than not I wind up sourcing a script or two from one of my remote servers, thusly:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>. &lt;(curl -Ss https://mygitrepo.whatever/repo/file.sh)
+</code></pre></div></div>
+
+<p>Now and then the server complains by responding:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash: /dev/fd/63: No such file or directory
+</code></pre></div></div>
+
+<p>I went googling and found that actually it’s not a very uncommon thing to have happen. It turns out the symlink <code class="language-plaintext highlighter-rouge">/dev/fd &gt; /proc/self/fd</code> was missing. The thing is, when you use process substitution:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>command 1 &lt;(command 2)
+</code></pre></div></div>
+
+<p>what Linux does is runs <code class="language-plaintext highlighter-rouge">command 2</code> and sticks the output in a file descriptor under <code class="language-plaintext highlighter-rouge">/dev/fd/</code>, which is then used as the input “file” to <code class="language-plaintext highlighter-rouge">command 1</code>.</p>
+
+<p>I don’t know who/what is responsible for creating that in the first place, but simply creating the symlink fixed it. I’ll have to learn more about it so I can understand what went wrong in the first place. A reboot will destroy the symlink I manually created (it’s in a virtual filesystem that gets created on each boot), so it’s important to find out how to get the system to automtically do that.</p>
+
+<p>I got to wondering why it is that stdin, stdout and stderr were working. I know they’re also just file descriptors, and I assumed they would’ve been under <code class="language-plaintext highlighter-rouge">/dev/fd/[0..2]</code> also, but it turns out they’re symlinks as well (or at least on the systems I’m using they are - Fedora, CentOS):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/dev/stderr -&gt; /proc/self/fd/2
+/dev/stdin -&gt; /proc/self/fd/0
+/dev/stdout -&gt; /proc/self/fd/1
+</code></pre></div></div>
+
+:ET

@@ -1,0 +1,13 @@
+I"�<p>I didn’t know this but there’s this thing in Sublime Text 3 referred to as a “builder” that basically lets you run some code against whatever file/project you’re in.</p>
+
+<p>The reason I’m using this is because I hate having a separate terminal open to run a script I’m working on. Instead I can just use <code class="language-plaintext highlighter-rouge">ctrl+b</code> and it’ll run the code and display the output in a window at the bottom of my Sublime window.</p>
+
+<p>Here’s what I used:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+	"cmd": ["/usr/bin/python3", "-u", "$file"], 
+}
+</code></pre></div></div>
+
+<p>I went to Tools &gt; Build System &gt; New Build System, pasted the above in and called it “python3.sublime-build”. It resides under ~/.config/sublime-text-3/Packages/User/. Now when I hit <code class="language-plaintext highlighter-rouge">ctrl+b</code> it runs my Python and shows me the output! Sweet!</p>
+:ET

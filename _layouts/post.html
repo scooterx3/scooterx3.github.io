@@ -1,60 +1,129 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{ site.name }}{% if page.title %} | {{ page.title }} {% endif %}</title>
-	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-	<link rel="stylesheet" type="text/css" href="/assets/css/pygments/syntax.css">
-</head>
+---
+layout: default
+# The posts' layout
+---
 
-<body>
-	<div id="rightpane">
-	{% include sidebar.html %}
-	<div id="contentcontainer">
-		<div id="content">
-			<h1 class='posttitle'>{{ page.title }}</h1>
-			<span ><b>Posted:</b> {{ page.date | date_to_long_string }}</span>
-				{% if page.updated %}
-					<br><span ><b>Updated:</b> {{ page.updated | date_to_long_string }}</span>
-				{% endif %}
-			{% if page.tags.size > 0 %}
-			<br><b>tagged:</b><span>
-				{% for tag in page.tags %}
-					{% if tag == page.tags.last %}
-						{{ tag }}
-					{% else %}
-						{{ tag }},
-					{% endif %}
-				{% endfor %}</span>
-			{% else %}
-				<br><b>-no tags-</b>
-			{% endif %}
-			{{content}}
-		</div>
-		{% if page.comments %}
-		<div id="disqus_thread"></div>
-			<script>
-			/**
-			*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-			*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+<div class="row">
 
-			var disqus_config = function () {
-			// this.page.url = '{{ page.url }}';  // Replace PAGE_URL with your page's canonical URL variable
-			// this.page.identifier = '{{ page.id }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-			};
+  <div id="post-wrapper" class="col-12 col-lg-11 col-xl-8">
 
-			// var disqus_developer = 1;
-			(function() { // DON'T EDIT BELOW THIS LINE
-			var d = document, s = d.createElement('script');
-			s.src = 'https://scooterx3.disqus.com/embed.js';
-			s.setAttribute('data-timestamp', +new Date());
-			(d.head || d.body).appendChild(s);
-			})();
-			</script>
-			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                                
-		{% endif %}
-	</div>
-</div>
-<script id="dsq-count-scr" src="//scooterx3.disqus.com/count.js" async></script>
-</body>
-</html>
+    <div class="post pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
+
+      <h1 data-toc-skip>{{ page.title }}</h1>
+
+      <div class="post-meta text-muted d-flex flex-column">
+        <!-- Published date and author -->
+        <div>
+          <span class="semi-bold">
+            {{ page.author | default: site.social.name }}
+          </span>
+          {% include timeago.html date=page.date prep="on" tooltip=true %}
+        </div>
+
+        <div>
+          <!-- lastmod -->
+          {% if page.last_modified_at %}
+          <span>
+            {% include timeago.html date=page.last_modified_at
+              class="lastmod" prefix="Updated" tooltip=true %}
+          </span>
+          {% endif %}
+
+          <!-- read time -->
+          {% include read-time.html content=content %}
+
+          <!-- page views -->
+          {% if site.google_analytics.pv.proxy_endpoint or site.google_analytics.pv.cache_path %}
+          <span id="pv" class="pageviews"><i class="fas fa-spinner fa-spin fa-fw"></i></span>
+          {% endif %}
+
+        </div>
+
+      </div> <!-- .post-meta -->
+
+      <div class="post-content">
+
+        {% if page.image.src %}
+          <img src="{{ page.image.src }}" class="preview-img" alt="{{ page.image.alt | default: "Preview Image" }}">
+        {% endif %}
+
+        {{ content }}
+
+      </div>
+
+      <div class="post-tail-wrapper text-muted">
+
+        <!-- categories -->
+         <!--{% if page.categories.size > 0 %}
+        <div class="post-meta mb-3">
+          <i class="far fa-folder-open fa-fw mr-1"></i>
+          {% for category in page.categories %}
+            <a href='{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/'>{{ category }}</a>
+            {%- unless forloop.last -%}, {%- endunless -%}
+          {% endfor %}
+        </div>
+        {% endif %}-->
+
+        <!-- tags -->
+        {% if page.tags.size > 0 %}
+        <div class="post-tags">
+          <i class="fa fa-tags fa-fw mr-1"></i>
+          {% for tag in page.tags %}
+          <a href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
+            class="post-tag no-text-decoration" >
+            {{- tag -}}
+          </a>
+          {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="post-tail-bottom
+          d-flex justify-content-between align-items-center mt-3 pt-5 pb-2">
+          {% if site.data.rights.license %}
+          <div class="license-wrapper">
+            This post is licensed under
+            <a href="{{ site.data.rights.license.link }}">{{ site.data.rights.license.name }}</a>
+            by the author.
+          </div>
+          {% endif %}
+
+          {% include post-sharing.html %}
+
+        </div><!-- .post-tail-bottom -->
+
+      </div><!-- div.post-tail -->
+
+    </div> <!-- .post -->
+
+
+  </div> <!-- #post-wrapper -->
+
+  {% assign enable_toc = false %}
+
+  {% if site.toc and page.toc %}
+    {% if content contains '<h2' or content contains '<h3' %}
+      {% assign enable_toc = true %}
+    {% endif %}
+  {% endif %}
+
+  {% include panel.html toc=enable_toc %}
+
+</div> <!-- .row -->
+
+<div class="row">
+  <div class="col-12 col-lg-11 col-xl-8">
+    <div id="post-extend-wrapper" class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-md-4 pr-md-4">
+
+    {% include related-posts.html %}
+
+    {% include post-nav.html %}
+
+    {% if site.disqus.comments and page.comments %}
+      {% include disqus.html %}
+    {% endif %}
+
+    </div> <!-- #post-extend-wrapper -->
+
+  </div> <!-- .col-* -->
+
+</div> <!-- .row -->

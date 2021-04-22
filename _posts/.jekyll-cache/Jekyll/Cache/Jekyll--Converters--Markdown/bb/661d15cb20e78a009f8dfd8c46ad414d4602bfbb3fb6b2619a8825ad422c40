@@ -1,0 +1,12 @@
+I"�<p>I knew of this option:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo -e "\042asdf\042" # this prints ("asdf")
+</code></pre></div></div>
+
+<p>but never realized that one could also:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $'\042asdf\042' # this also prints ("asdf")
+</code></pre></div></div>
+
+<p>I don’t even know what to call that…</p>
+:ET

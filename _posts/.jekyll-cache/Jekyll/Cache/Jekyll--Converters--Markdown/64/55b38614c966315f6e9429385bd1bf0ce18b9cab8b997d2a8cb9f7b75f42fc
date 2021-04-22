@@ -1,0 +1,8 @@
+I"i<p>So I bought a simple dual core desktop machine recently to use as a simple server. I fired it up with centos 7’s “minimal” ISO. Got up and going, network didn’t work (lights were flashing, but nothing but a loopback device was recognized by the system). So I installed the “DVD” iso, hoping it would have whatever extra thing in it that was needed for the networking but still no dice. Finally I found out that a kernel module called “forcedeth” was missing. This bug report led me to a solution:</p>
+
+<p>https://bugs.centos.org/view.php?id=7359</p>
+
+<p>I just downloaded the plus kernel (check the notes in the above, otherwise the “fixed” status is deceptive based on the title of the issue), USB-sticked it over to the ailing machine and RPM installed it. I found it here:</p>
+
+<p>http://mirror.centos.org/centos/7/centosplus/x86_64/Packages/</p>
+:ET

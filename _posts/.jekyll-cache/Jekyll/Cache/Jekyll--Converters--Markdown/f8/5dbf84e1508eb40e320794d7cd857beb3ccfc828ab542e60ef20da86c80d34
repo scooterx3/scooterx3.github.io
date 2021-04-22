@@ -1,0 +1,66 @@
+I"!<p>The purpose of the <code class="language-plaintext highlighter-rouge">paste</code> command is to merge lines of files together. So for instance between file1 and file2, the default behavior is to paste the lines of the files side by side with a tab between them.</p>
+
+<p>file <code class="language-plaintext highlighter-rouge">a</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>the quick brown fox
+jumped over the dirty, soggy log
+the cow jumped over the moon
+the dish ran away with the spoon
+that one guy put his wife in a pumpkin
+some kid's head got all big because he pulled a plum out of a pie
+</code></pre></div></div>
+
+<p>file <code class="language-plaintext highlighter-rouge">b</code>:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Lorem ipsum dolor sit amet
+consectetur adipisicing elit
+sed do eiusmod
+there are probably other lines of
+gobbledygook out there but I don't 
+think I need any more. 
+</code></pre></div></div>
+
+<h2 id="default-behavior">default behavior</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ paste a b
+the quick brown fox	Lorem ipsum dolor sit amet
+jumped over the dirty, soggy log	consectetur adipisicing elit
+the cow jumped over the moon	sed do eiusmod
+the dish ran away with the spoon	there are probably other lines of
+that one guy put his wife in a pumpkin	gobbledygook out there but I don't 
+some kid's head got all big because he pulled a plum out of a pie	think I need any more.
+</code></pre></div></div>
+
+<p>Notice that line 1 from file <code class="language-plaintext highlighter-rouge">a</code> is next to line 1 from file <code class="language-plaintext highlighter-rouge">b</code>?</p>
+
+<h2 id="serial">serial</h2>
+
+<p>Using <code class="language-plaintext highlighter-rouge">-s</code> makes file <code class="language-plaintext highlighter-rouge">a</code> reside on first line and file <code class="language-plaintext highlighter-rouge">b</code> reside on second line (added <code class="language-plaintext highlighter-rouge">&gt;</code> for clarity):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ paste a b -s
+&gt; the quick brown fox	jumped over the dirty, soggy log	the cow jumped over the moon	the dish ran away with the spoon	that one guy put his wife in a pumpkin	some kid's head got all big because he pulled a plum out of a pie
+&gt; Lorem ipsum dolor sit amet	consectetur adipisicing elit	sed do eiusmod	there are probably other lines of	gobbledygook out there but I don't 	think I need any more. 
+</code></pre></div></div>
+
+<h2 id="delimiter">delimiter</h2>
+
+<p>the <code class="language-plaintext highlighter-rouge">-d</code> flag allows one to specify something other than tabs to delimit the lines:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paste a b -d:
+the quick brown fox:Lorem ipsum dolor sit amet
+jumped over the dirty, soggy log:consectetur adipisicing elit
+the cow jumped over the moon:sed do eiusmod
+the dish ran away with the spoon:there are probably other lines of
+that one guy put his wife in a pumpkin:gobbledygook out there but I don't 
+some kid's head got all big because he pulled a plum out of a pie:think I need any more.
+</code></pre></div></div>
+
+<p>It doesn’t allow for more than one character though it seems. I tried a fancy string but it only took the first character:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>paste a b -d'&lt;a b&gt;'
+the quick brown fox&lt;Lorem ipsum dolor sit amet
+jumped over the dirty, soggy log&lt;consectetur adipisicing elit
+the cow jumped over the moon&lt;sed do eiusmod
+the dish ran away with the spoon&lt;there are probably other lines of
+that one guy put his wife in a pumpkin&lt;gobbledygook out there but I don't 
+some kid's head got all big because he pulled a plum out of a pie&lt;think I need any more.
+</code></pre></div></div>
+:ET

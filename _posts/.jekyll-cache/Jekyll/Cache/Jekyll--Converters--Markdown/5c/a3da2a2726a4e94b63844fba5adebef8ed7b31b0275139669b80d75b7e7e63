@@ -1,0 +1,83 @@
+I"�<p>FG BG jobs nohup, disown, screen</p>
+
+<h2 id="jobs">Jobs</h2>
+
+<p>What are Jobs? A <strong>job</strong> is a concept used by the shell – any program you interactively start that doesn’t detach (ie, not a daemon) is a <strong>job. </strong>Jobs can reside in the foreground (spitting output to the terminal) or in the background (they run, but you don’t get their output spat to the terminal).</p>
+
+<p>One can send a job to BG right away using the ‘&amp;’ at the end of the command. Ex:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>somecrazycommand &amp;
+</code></pre></div></div>
+
+<p>If you’ve already started a command, use ‘ctrl+z’ to suspend it (stopping the process from continuing), then ‘bg’ (which will allow it to run in the background). Ex:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sleep 444444
+^Z 
+[3]+ Stopped
+$ bg
+[3]+ sleep 444444 &amp;
+</code></pre></div></div>
+
+<p>You could specify a job number by ‘bg %<job number="">&#8217;.</job></p>
+
+<p>List jobs: use the ‘jobs’ command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jobs
+[1] Running sleep 22222 &amp;
+[2] Running sleep 11111 &amp;
+[3] Running sleep 444444 &amp;
+[4]- Stopped sleep 66666
+[5]+ Stopped sleep 7777
+</code></pre></div></div>
+
+<p>Jobs 4 and 5 are suspended, not running in fg or bg.</p>
+
+<p>To get the job back to the foreground, use ‘fg %<job number="">&#8217;:</job></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ fg %4
+sleep 66666
+</code></pre></div></div>
+
+<p>These jobs are all attached to the current terminal window. If closed/exited, they all get killed (Hung Up  or “hup”). Enter NOHUP &amp; DISOWN</p>
+
+<h2 id="nohup--disown">NOHUP &amp; DISOWN</h2>
+
+<p>A way to protect jobs from being killed when closing terminal. One is a command called ‘nohup’. Can do:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nohup sleep 44444 &amp;
+</code></pre></div></div>
+
+<p>The sleep command would run in the background, no output would be sent to the terminal but instead sent to nohup.out in whatever dir you were standing in at the time.</p>
+
+<p>Another way to do it is using ‘disown’. A list of jobs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jobs
+[1] Running sleep 22222 &amp;
+[2] Running sleep 11111 &amp;
+[3] Running sleep 444444 &amp;
+[4]- Running sleep 66666 &amp;
+[5]+ Stopped sleep 7777
+</code></pre></div></div>
+
+<p>Then can do:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>disown %3
+</code></pre></div></div>
+
+<p>New list of jobs:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jobs
+[1] Running sleep 22222 &amp;
+[2] Running sleep 11111 &amp;
+[4]- Running sleep 66666 &amp;
+[5]+ Stopped sleep 7777
+</code></pre></div></div>
+
+<p>job %3 is now “disowned” and the computer keeps running it even if the window is closed.</p>
+
+<p>The problem with nohup and disown is that you can’t resume the jobs after you’ve nohupped or disowned. Enter screen</p>
+
+<h2 id="screen">Screen</h2>
+
+<p>Screen you know, it lets you jump into a session that you can allow to stay alive, detach from, reattach from anywhere, etc. Awesome and stuff.</p>
+:ET

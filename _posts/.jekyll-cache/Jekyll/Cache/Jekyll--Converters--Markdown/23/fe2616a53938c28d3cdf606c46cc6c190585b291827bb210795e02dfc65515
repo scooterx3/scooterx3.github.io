@@ -1,0 +1,6 @@
+I"¹<p>When VMware gets installed, it checks to make sure the proper kernel modules are installed when first run. It fails for me on Fedora24. I am not savvy when it comes to these things so I had to go digging. I found this resource:</p>
+
+<p>http://vcojot.blogspot.com/2015/11/vmware-worksation-12-on-fedora-core-23.html</p>
+
+<p>Which worked wonderfully. Basically I had to run <a href="https://raw.githubusercontent.com/ElCoyote27/krynn-tools/master/Update_VMW.sh">this script</a> that the author of the article made, which as I understand altered vmware files. Then I ranÂ vmware-modconfig to go ahead and allow vmware to update kernel modules for me, which it did with no problem. Done. Woot!</p>
+:ET

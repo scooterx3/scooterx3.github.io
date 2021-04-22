@@ -1,0 +1,41 @@
+I"<p><strong>GR</strong>and <strong>U</strong>nified <strong>B</strong>oot System</p>
+
+<p>Essentially, Grub Legacy is easy to reconfigure by just changing a single file. Grub 2 has several config files, then once you’ve changed them, you have to run a script to update the cfg file that grub2 reads in order for the changes to take effect.</p>
+
+<h3 id="legacy-config-is-simple">Legacy config is simple:</h3>
+
+<p>/boot/grub/menu.lst « how you change how the system boots, unique to grub legacy</p>
+
+<h3 id="grub2-config">Grub2 config:</h3>
+
+<p>/etc/default/grub « one of the config files</p>
+
+<p>grub2-mkconfig -o /path/to/grub.cfg (probably /etc/grub2/grub.cfg)</p>
+
+<p>Hafta’ change config file, then run the mkconfig to regenerate the grub.cfg, then your changes take effect.</p>
+
+<h3 id="os-differences">OS differences</h3>
+
+<h4 id="ubuntu">Ubuntu</h4>
+
+<ul>
+  <li>grub2 since 2009</li>
+  <li>backward compatible</li>
+  <li>grub2 stuff in /boot/grub/grub.cfg</li>
+</ul>
+
+<h4 id="enterprise-6-centos-rhel-whatev">Enterprise 6 (centos, rhel, whatev)</h4>
+
+<ul>
+  <li>grub legacy</li>
+  <li>no grub2 tools</li>
+</ul>
+
+<h4 id="enterprise-7-centos-rhel-whatev">Enterprise 7 (centos, rhel, whatev)</h4>
+
+<ul>
+  <li>grub2</li>
+  <li>no backwards compatibility</li>
+  <li>/boot/grub2/</li>
+</ul>
+:ET

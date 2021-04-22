@@ -1,0 +1,9 @@
+I" <p>Just a quick note, I had to open up a hole in the firewall on the server itself (even though I had my router stuff all set right already) by doing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;i&gt;sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
+sudo firewall-cmd --reload
+&lt;/i&gt;
+</code></pre></div></div>
+
+<p>Worked great. I guess having a firewall on the server itself is good too. Instead of just relying on the one on the outer edge of the network.</p>
+:ET

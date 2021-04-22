@@ -1,0 +1,38 @@
+I"�<blockquote>
+  <p>“I fight for the users!” -Tron</p>
+</blockquote>
+
+<p>Just a basic syntax cheat-sheet, for things I’d most likely use these for.</p>
+
+<h2 id="useradd">useradd</h2>
+
+<ul>
+  <li><strong>-c</strong>: add a comment (typically used for the user’s full name)</li>
+  <li><strong>-d</strong>: specify home directory (but this doesn’t necessarily create it)</li>
+  <li><strong>-m</strong>: create home diretory</li>
+  <li><strong>-r</strong>: system account (for things like Apache where it’s best to run under a user acct)</li>
+</ul>
+
+<h2 id="usermod">usermod</h2>
+
+<ul>
+  <li><strong>-a</strong>: append; adds user to groups (only use with -G option)</li>
+  <li><strong>-c</strong>: overwrite current comment</li>
+  <li><strong>-d</strong>: specify new home direcctory</li>
+  <li><strong>-G</strong>: a list of groups that the user is a member of (overwrites the list unless used with -a)</li>
+  <li><strong>-L</strong>: lock password (this won’t block SSH with a key)</li>
+  <li><strong>-m</strong>: move home (move user’s home to a new location)</li>
+</ul>
+
+<h2 id="groupadd">groupadd</h2>
+
+<ul>
+  <li><strong>-r</strong>: system</li>
+</ul>
+
+<h2 id="groupmod">groupmod</h2>
+
+<ul>
+  <li><strong>-n</strong>: new name for the group</li>
+</ul>
+:ET

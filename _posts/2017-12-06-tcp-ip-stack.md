@@ -1,6 +1,7 @@
 ---
 title: TCP/IP stack
 tags: networking
+layout: post
 ---
 
 

@@ -1,0 +1,80 @@
+I"u<h2 id="purpose">purpose</h2>
+
+<p>the <code class="language-plaintext highlighter-rouge">tr</code> command is for “translating” (replacing or deleting) <strong>characters</strong> in a string. Accepts input from stdin, and puts output on stdout. I am bold about <strong>characters</strong> because it’s not got a way to specify that you want to replace one string with another string (use <code class="language-plaintext highlighter-rouge">sed</code> for that).</p>
+
+<h2 id="examples">examples</h2>
+
+<h3 id="single-character-replacement">single character replacement</h3>
+<p>The basic usage on <code class="language-plaintext highlighter-rouge">tr</code> is to just replace one character with another. It’s case-sensitive:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"aAbBcCdD1234"</span> | <span class="nb">tr </span>1 R
+aAbBcCdDR234 <span class="c">#only the '1' was replaced with 'R'</span>
+</code></pre></div></div>
+
+<h3 id="character-set-replacement">character set replacement</h3>
+
+<p>One can specify a set of characters to be replaced by a set of others:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"Johnny Apple Seed"</span> | <span class="nb">tr </span>abcde ZYXWV
+Johnny ApplV SVVW 
+</code></pre></div></div>
+
+<p>Something interesting to also note is what happens if the size of each set of characters differ:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"abcd1234"</span> | <span class="nb">tr </span>12 abcd <span class="c">#[[ L1 &lt; L2 ]]: L2's extra chars take no effect</span>
+abcdab34
+ 
+<span class="nb">echo</span> <span class="s2">"abcd1234"</span> | <span class="nb">tr </span>1234 ab <span class="c">#[[ L1 &gt; L2 ]]: L1's extra chars are replaced by last char in L2</span>
+abcdabbb
+</code></pre></div></div>
+
+<p>You can eliminate the weird side effect in the 2nd example above by “truncating” set1 (<code class="language-plaintext highlighter-rouge">tr -t</code>):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"abcd1234"</span> | <span class="nb">tr</span> <span class="nt">-t</span> 1234 ab
+abcdab34 <span class="c"># notice the '3' and '4' are still there. </span>
+</code></pre></div></div>
+
+<h3 id="delete-characters">delete characters</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"aAbBcCdD1234"</span> | <span class="nb">tr</span> <span class="nt">-d</span> aC3
+AbBcdD124
+</code></pre></div></div>
+
+<p>I keep seeing this specifically pop up to “translate” microsoft newline/carriage returns (‘\r\n’) and turn them into regular *nix newlines (‘\n’):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file dosplaintext.txt 
+<span class="c">#dosplaintext.txt: ASCII text, with CRLF line terminators</span>
+
+<span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\r'</span> &lt; dosplaintext.txt <span class="o">&gt;</span> plaintext.txt
+
+file plaintext.txt 
+<span class="c">#plaintext.txt: ASCII text</span>
+</code></pre></div></div>
+
+<h3 id="complement">complement</h3>
+
+<p>using the -c makes it so that the complement (all characters OTHER than the ones specified) gets translated. Here’s a normal one followed by an inverted one:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"abcd1234"</span> | <span class="nb">tr </span>12 ab 
+abcdab34
+
+<span class="nb">echo</span> <span class="s2">"abcd1234"</span> | <span class="nb">tr</span> <span class="nt">-c</span> 12 ab 
+bbbb12bbb
+</code></pre></div></div>
+
+<h3 id="compress">compress</h3>
+
+<p>using -s makes it so that it “compresses” sequences of the same character (as well as translate, if a second set is given):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"aabbccdd11223344"</span> | <span class="nb">tr</span> <span class="nt">-s</span> 1
+aabbccdd1223344 <span class="c"># notice only a single '1' is left behind</span>
+
+<span class="nb">echo</span> <span class="s2">"aabbccdd11223344"</span> | <span class="nb">tr</span> <span class="nt">-s</span> 1 a
+abbccdda223344 <span class="c"># that same '1' got left behind, then translated to an 'a'. </span>
+</code></pre></div></div>
+
+<h3 id="interpreted-sequences">interpreted sequences</h3>
+
+<p>Characters are taken literally; a=a, 1=1, b=b, etc. But some strings passed in sets are interpreted. There are several. Refer to the man for the full list, but there are things like <code class="language-plaintext highlighter-rouge">[:space:]</code> to represent white space, or <code class="language-plaintext highlighter-rouge">[:upper:]</code> to represent all upper case chars, etc.</p>
+
+:ET

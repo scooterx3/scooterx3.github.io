@@ -1,6 +1,7 @@
 ---
 title: Sublime Text 3 builder for Python 3
 tags: python
+layout: post
 ---
 
 I didn't know this but there's this thing in Sublime Text 3 referred to as a "builder" that basically lets you run some code against whatever file/project you're in. 

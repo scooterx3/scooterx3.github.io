@@ -1,0 +1,7 @@
+I"ˆ<p>Just needed to know recently how many inodes one can expect on a basic VPS server. According to ArchWiki:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkfs.ext4Â uses by default a rather low ratio of one inode every 16384 bytes (16 Kb)
+</code></pre></div></div>
+
+<p>Which roughly boils down to 1M inodes per 15GB of space.</p>
+:ET

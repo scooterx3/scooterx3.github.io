@@ -1,6 +1,7 @@
 ---
 title: cut - remove sections from each line of files
 tags: cut
+layout: post
 ---
 
 ## purpose

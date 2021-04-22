@@ -1,6 +1,7 @@
 ---
 title: Back up files when doing inline sed operations
 tag: sed
+layout: post
 ---
 
 I was accustomed to using sed's `-i` option but never realized until now that it can be used to back up the original file before overwriting. 

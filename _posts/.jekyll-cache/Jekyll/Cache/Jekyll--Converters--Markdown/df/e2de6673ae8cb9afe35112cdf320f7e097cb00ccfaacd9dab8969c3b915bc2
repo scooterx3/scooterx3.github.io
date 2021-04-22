@@ -1,0 +1,35 @@
+I"	<p>Redirecting</p>
+
+<p>stdin is a channel where one provides input (keyboard, typically)</p>
+
+<p>stdout is a channel that a script or program uses to output information</p>
+
+<p>stderr is another channel used by a script or program to output errors</p>
+
+<p>&lt; redirect stdin</p>
+
+<blockquote>
+  <p>redirect stdout</p>
+</blockquote>
+
+<p>2&gt; redirect stderr</p>
+
+<p>Examples:</p>
+
+<p>This redirects any errors to the ‘err’ file</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls nonexistentfile 2&amp;gt; err
+</code></pre></div></div>
+
+<p>This redirects any actual output to the ‘out’ file and errors to ‘err’</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls nonexistentfile 2&amp;gt; err &amp;gt; out
+</code></pre></div></div>
+
+<p>This redirects stderr to stdout and then both to the file:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ls nonexistentfile &amp;gt; file.txt 2&amp;gt;&amp;1
+</code></pre></div></div>
+
+<p>Though I don’t yet understand why it is that it needs to happen in that particular order. I would’ve assumed 2&gt;&amp;1 &gt; file.txt but it doesn’t work that way.</p>
+:ET

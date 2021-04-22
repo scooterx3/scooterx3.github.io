@@ -1,0 +1,20 @@
+I"�<p>Just wanted to write one or two of these, maybe more as time goes on:</p>
+
+<p>egrep:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>egrep -o "(['\"])root\1"
+</code></pre></div></div>
+
+<p>This one I wanted to get either a ‘ or a ” before the word “root” and then find the closing one, whichever it was. The key here is that with egrep you have to surround the statement in quotes, the opening/closing parentheses don’t need escaping, and use a backslash followed by a number to denote the group</p>
+
+<p> </p>
+
+<p>sed:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sed 's|\(['\''\"]\)root\1|great|g' sometest.txt
+</code></pre></div></div>
+
+<p>This one actually shows two interesting things about sed. One is quotes. Notice I had to close the first quotation, then escape a single quote, then reopen quotation. Sed is wacky.</p>
+
+<p>But the point of this one is that I can use capture groups. reference by using \1. The opening/closing parentheses need to be escaped. The captured group can be referenced either in the part being replaced or the part doing the replacing.</p>
+:ET

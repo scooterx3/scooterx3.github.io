@@ -1,0 +1,13 @@
+I"ô<p>This is cool, I can use this syntax:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{&amp;lt;start&amp;gt;..&amp;lt;end&amp;gt;..&amp;lt;increment&amp;gt;}
+</code></pre></div></div>
+
+<p>To step through numbers! Like this:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo {1..10..2}
+1 3 5 7 9
+</code></pre></div></div>
+
+<p>It works in loops, or any old thing! Awesome!</p>
+:ET

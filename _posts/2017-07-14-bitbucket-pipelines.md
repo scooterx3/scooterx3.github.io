@@ -1,6 +1,7 @@
 ---
 title: Bitbucket Pipelines
 tags: automation git
+layout: post
 ---
 
 Pipelines are a way to automate tasks when committing to a git repo (and more). Generally I've viewed them as a good way to deploy as soon as you commit. I suppose there are other uses for them though. I'd never used pipelines, but had always wanted to fire up a Jenkins server to mess around with it. But it seemed overwhelming and honestly I had trouble justifying the time. The other day though, I noticed that Bitbucket has a new-ish pipelines feature! I figured it'd be awesome to get started, especially since I was already elbows-deep in a project that could benefit. Here's how it all went down and what I learned. 

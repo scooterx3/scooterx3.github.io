@@ -1,0 +1,32 @@
+I"�<p>The TCP/IP stack is a networking model that describes what happens to data in transit from one application to another.</p>
+
+<h2 id="how-does-it-differ-from-osi">How does it differ from OSI?</h2>
+
+<p>The TCP/IP stack is just another model, similar to OSI. At the end of the day, TCP/IP stack aims to describe the same thing that OSI does. It’s just a different description. Like learning the same subject from two different people.</p>
+
+<h2 id="the-layers">The layers:</h2>
+
+<ul>
+  <li>Application</li>
+  <li>Transport</li>
+  <li>IP</li>
+  <li>Link</li>
+</ul>
+
+<h3 id="application">Application</h3>
+
+<p>This layer defines what data is to be sent and “encodes” it so that the receiving application can understand it.</p>
+
+<h3 id="transport">Transport</h3>
+
+<p>Transport layer wraps the payload in a header specifying the port that the packet should go to on the receiving host</p>
+
+<h3 id="internet">Internet</h3>
+
+<p>This is where the packet is wrapped with a source and destination IP address</p>
+
+<h3 id="link">Link</h3>
+
+<p>The link layer wraps the packet in a source and destination MAC address and does the whole ARP thing to send the packets to the correct ports on the machine so they travel towards their destination.</p>
+
+:ET
