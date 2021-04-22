@@ -1,8 +1,19 @@
+# hidden files
+.*
+!.github
+
+# bundler cache
 _site
-.sass-cache
-.DS_Store
-*.sublime-project
-*.sublime-workspace
-codekit-config.json
+vendor
+Gemfile.lock
+
+# rubygem
+*.gem
+
+# npm dependencies
 node_modules
-_asset_bundler_cache
+package-lock.json
+
+# other
+LICENSE
+README.md
